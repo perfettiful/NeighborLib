@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Dashboard</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="dashboard">
+
+
+<!-- signed in nav. different enough from the public one that you can tell
+     at a glance which side of the product you are on -->
+<nav class="navbar navbar-expand-lg bg-dark border-bottom" data-bs-theme="dark">
+	<div class="container">
+		<a class="navbar-brand" href="../app/dashboard.html">Neighbor Library <small>curator</small></a>
+		<div>
+			<a class="btn btn-sm btn-outline-light" href="../app/inventory.html">Inventory</a>
+			<a class="btn btn-sm btn-outline-light" href="../app/checkouts.html">Checkouts</a>
+			<a class="btn btn-sm btn-outline-light" href="../app/box-settings.html">Box</a>
+			<a class="btn btn-sm btn-outline-light" href="../public/home.html">Exit</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+
+	<h1>Como Ave box</h1>
+	<p class="text-muted">
+		Your box. Nobody else can edit it and nobody is reviewing it.
+		<span class="pin" data-n="1"
+			data-title="One curator, one box, nobody above it"
+			data-note="There is no admin tier, no regional coordinator, and no staff account that can reach into somebody else's inventory. Every curator is the top of their own tiny system, which is also how the real thing works, since the box is literally on their property.|That deletes most of what usually makes a product like this big. No permissions matrix, no approval queue, no appeals, no roles screen. The only two kinds of person in the whole design are a curator with one box and a passerby with no account at all.">1</span>
+	</p>
+
+	<div class="row g-3 my-4">
+		<div class="col-sm-3">
+			<div class="border p-3 text-center">
+				<div class="fs-2">28</div>
+				<div class="small text-muted">on the shelf</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="border p-3 text-center">
+				<div class="fs-2">6</div>
+				<div class="small text-muted">out right now</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="border p-3 text-center">
+				<div class="fs-2">2</div>
+				<div class="small text-muted">out a long time</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="border p-3 text-center">
+				<div class="fs-2">9</div>
+				<div class="small text-muted">gone for good</div>
+			</div>
+		</div>
+	</div>
+
+	<p class="small text-muted">
+		No score, no streak. These are just counts.
+		<span class="pin" data-n="2"
+			data-title="Four counts, and none of them is a score"
+			data-note="The obvious dashboard metric is something like a health percentage or a streak, and both would be lying about a hobby. Nine books gone is not a failure, it is nine books that found homes, and that is the whole point of a free book box.|So the numbers are flat counts with plain labels and no color grading. Out a long time is the only one that is a nudge, and even that is worded as an observation rather than a problem.">2</span>
+	</p>
+
+	<hr />
+
+	<div class="row">
+		<div class="col-md-7">
+			<h4>Needs a minute from you</h4>
+			<p class="text-muted small">
+				Three things. All optional.
+				<span class="pin" data-n="3"
+					data-title="A short list of actual tasks, or nothing"
+					data-note="A curator opens this maybe twice a month and wants to know whether there is anything to do. So the dashboard leads with a to do list that can legitimately be empty, instead of a feed that always has something in it to look busy.|Everything on it is one tap. Nothing here opens a form, because the moment a task needs typing it gets put off and the list stops being trustworthy.">3</span>
+			</p>
+
+			<ul class="list-unstyled">
+				<li class="border p-3 mb-2 d-flex justify-content-between align-items-center">
+					<span>
+						<strong>Circe</strong> has been out since Aug 2<br />
+						<small class="text-muted">9 weeks. Probably not coming back.</small>
+					</span>
+					<span>
+						<button class="btn btn-sm btn-outline-secondary">Mark gone</button>
+						<button class="btn btn-sm btn-outline-secondary">Leave it</button>
+					</span>
+				</li>
+				<li class="border p-3 mb-2 d-flex justify-content-between align-items-center">
+					<span>
+						<strong>3 books</strong> marked returned by neighbors<br />
+						<small class="text-muted">Nothing to do unless they're wrong.</small>
+					</span>
+					<a class="btn btn-sm btn-outline-secondary" href="checkouts.html">Have a look</a>
+				</li>
+				<li class="border p-3 mb-2 d-flex justify-content-between align-items-center">
+					<span>
+						<strong>The shelf is getting full</strong><br />
+						<small class="text-muted">28 listed. Most boxes hold about 30.</small>
+					</span>
+					<button class="btn btn-sm btn-outline-secondary">Dismiss</button>
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-md-5">
+			<h4>Add books</h4>
+			<p>
+				The only thing you really have to do here. Neighbors handle the
+				rest themselves.
+			</p>
+			<a class="btn btn-primary mb-4" href="add-book.html">Add a book</a>
+			<span class="pin" data-n="4"
+				data-title="One primary action on the whole screen"
+				data-note="Adding donated books is the only job the system cannot do without the curator, so it is the only primary button. Inventory, checkouts, and settings are all in the nav as secondary things you go find when you want them.|If a curator only ever learns one button on this page, this is the one that keeps their box's list worth reading.">4</span>
+
+			<h5>Your box's public page</h5>
+			<p class="small">
+				<a href="../public/library.html" target="_blank">See what neighbors see</a>
+				<span class="pin" data-n="5"
+					data-title="A link to your own public page, always visible"
+					data-note="A curator editing an inventory has no idea how any of it looks to a stranger, and the public page is where the staleness badge and the block level map show up. Those are the two things most likely to surprise somebody.|Opening in a new tab is deliberate. It is a peek, not a navigation, and losing your place in the admin to go look would stop people doing it.">5</span>
+			</p>
+		</div>
+	</div>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

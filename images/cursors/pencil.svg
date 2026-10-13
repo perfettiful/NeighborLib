@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Text cursor, a pencil</title>
+
+<!-- typing. hotspot 6 28 is the graphite tip, so the point of the pencil
+     is exactly where the caret lands.
+     it leans up and to the right on purpose. text you have already typed
+     sits to the left of the caret, and a pencil leaning the other way
+     would sit on top of it while you type.
+     short and fat rather than long and thin. the first version was 26
+     units long and 7 wide and at actual size it just read as a stick. -->
+
+<g transform="translate(6,28) rotate(20)">
+
+	<path d="M0,0 L-4.5,-7.5 L-4.5,-22.5 L4.5,-22.5 L4.5,-7.5 Z"
+		fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linejoin="round" />
+
+	<g stroke="#2b2b2b" stroke-width="1.6" stroke-linejoin="round">
+		<path d="M-4.5,-22.5 h9 v3.5 h-9 z" fill="#f06595" />
+		<path d="M-4.5,-19 h9 v2 h-9 z" fill="#adb5bd" />
+		<path d="M-4.5,-17 h9 v9.5 h-9 z" fill="#f59f00" />
+		<path d="M-4.5,-7.5 L0,0 L4.5,-7.5 Z" fill="#f0ddb8" />
+	</g>
+
+	<path d="M-1.8,-3 L0,0 L1.8,-3 Z" fill="#2b2b2b" />
+
+</g>
+</svg>

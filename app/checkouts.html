@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Checkout log</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="checkouts">
+
+
+<!-- signed in nav. different enough from the public one that you can tell
+     at a glance which side of the product you are on -->
+<nav class="navbar navbar-expand-lg bg-dark border-bottom" data-bs-theme="dark">
+	<div class="container">
+		<a class="navbar-brand" href="../app/dashboard.html">Neighbor Library <small>curator</small></a>
+		<div>
+			<a class="btn btn-sm btn-outline-light" href="../app/inventory.html">Inventory</a>
+			<a class="btn btn-sm btn-outline-light" href="../app/checkouts.html">Checkouts</a>
+			<a class="btn btn-sm btn-outline-light" href="../app/box-settings.html">Box</a>
+			<a class="btn btn-sm btn-outline-light" href="../public/home.html">Exit</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+
+	<h1>Coming and going</h1>
+	<p class="text-muted">
+		What neighbors have marked, newest first. You don't have to do anything
+		with this.
+		<span class="pin" data-n="1"
+			data-title="A log to read, not a queue to clear"
+			data-note="This could easily have been an approval queue where the curator confirms each thing a neighbor claims. That would be a job, and it would be a job created by distrust, in a system whose entire premise is that people take books out of a wooden box and bring them back.|So it is a feed you glance at. Nothing is pending, nothing needs a decision, and if a row is wrong you fix it on the inventory screen. The absence of a queue here is the single clearest expression of the honor system in the whole design.">1</span>
+	</p>
+
+	<ul class="list-unstyled my-4">
+		<li class="border-bottom py-3">
+			<strong>Pachinko</strong> taken
+			<span class="text-muted">Oct 5, 6:40pm &middot; scanned the lid code</span>
+			<span class="pin" data-n="2"
+				data-title="No names, ever"
+				data-note="The system knows an email address for anybody who wanted a return reminder, and it never shows it here. A curator who could see which neighbor took which book would be able to watch the reading habits of people on their street, which is a really creepy thing to accidentally build.|The curator loses nothing by not knowing. Every action they can take on a book works the same whether they know who has it, and the one case where a name would help, a book that never comes back, is not a case this product should be trying to solve.">2</span>
+		</li>
+		<li class="border-bottom py-3">
+			<strong>Gathering Moss</strong> put back
+			<span class="text-muted">Oct 4, 9:12am &middot; from the reminder email</span>
+		</li>
+		<li class="border-bottom py-3">
+			<strong>The Overstory</strong> added by you
+			<span class="text-muted">Oct 4, 8:02pm</span>
+		</li>
+		<li class="border-bottom py-3">
+			<strong>Educated</strong> marked gone by you
+			<span class="text-muted">Jul 14 &middot; had been out since May</span>
+		</li>
+		<li class="border-bottom py-3">
+			<strong>Two board books</strong> added by you
+			<span class="text-muted">Jun 30</span>
+		</li>
+	</ul>
+
+	<p class="small text-muted">
+		Goes back to the day you registered.
+		<span class="pin" data-n="3"
+			data-title="One timeline for everything, including your own edits"
+			data-note="Splitting this into what neighbors did and what I did would mean two screens and a mental join between them. Everything that ever happened to a book lands in one list, which is also the only way to make sense of a sequence like taken, nudged, marked gone, came back.|Your own actions showing up here is a small honesty thing too. The log is a record of the box, not a report card on the neighborhood.">3</span>
+	</p>
+
+	<hr />
+
+	<p class="small">
+		<a href="../flows/states.html">Every state a copy can be in</a> &middot;
+		<a href="../flows/flow-checkout.html">How borrowing works end to end</a>
+	</p>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

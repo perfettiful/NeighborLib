@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Sign up flow</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="flow-signup">
+
+
+<nav class="navbar bg-light border-bottom">
+	<div class="container">
+		<a class="navbar-brand" href="../public/home.html">Neighbor Library</a>
+		<div>
+			<a class="btn btn-sm btn-outline-secondary" href="flow-signup.html">Sign up flow</a>
+			<a class="btn btn-sm btn-outline-secondary" href="flow-checkout.html">Borrow flow</a>
+			<a class="btn btn-sm btn-outline-secondary" href="states.html">States</a>
+			<a class="btn btn-sm btn-outline-secondary" href="policy.html">Honor system</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+
+	<h1>Registering a box, end to end</h1>
+	<p class="text-muted">
+		Seven steps, two of which are emails. The only flow in the product
+		that involves a password.
+	</p>
+
+	<p class="legend mb-4">
+		<span><i style="border-left-width:8px;border-left-color:#1c7ed6;"></i>passerby, no account</span>
+		<span><i style="border-left-width:8px;border-left-color:#2f9e44;"></i>curator, signed in</span>
+		<span><i style="border-left-width:8px;border-left-color:#868e96;background:#f6f6f6;"></i>the system</span>
+	</p>
+
+
+	<div class="flow">
+
+		<div class="step by-cur">
+			<span class="who">curator</span>
+			Finds the site, lands on <a href="../public/home.html">home</a>, clicks
+			<em>Register a box</em>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-cur">
+			<span class="who">curator</span>
+			Fills in <a href="../auth/signup.html">four fields</a>, email, password,
+			box name, address
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-system">
+			<span class="who">system</span>
+			Makes the account unverified, sends
+			<a href="../email/verify-email.html">the verify email</a>, shows
+			<a href="../auth/verify.html">check your email</a>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="alt mb-2">
+			<span class="lbl">if they never click</span><br />
+			The account sits unverified and the box never appears on the map.
+			Nothing is published and no reminder gets sent.
+			<span class="pin" data-n="1"
+				data-title="Abandoned signups die quietly"
+				data-note="A fair number of people will fill in the form and never open the email, and the tempting fix is a chase sequence three days later. I am not sending it. A box that was never confirmed may not exist, may be in a yard whose owner changed their mind, and putting a pin on the map for it would make the map worse.|Doing nothing is also the privacy respecting answer. Somebody who typed an address and walked away has not agreed to a relationship.">1</span>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-cur">
+			<span class="who">curator</span>
+			Opens the email, clicks <em>Put my box on the map</em>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-system">
+			<span class="who">system</span>
+			Verifies, signs them in, places the map pin, sends
+			<a href="../email/welcome-email.html">the welcome email</a>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-cur">
+			<span class="who">curator</span>
+			Lands on <a href="../app/dashboard.html">the dashboard</a> with an empty
+			inventory and one button
+			<span class="pin" data-n="2"
+				data-title="The box goes live empty, and that's fine"
+				data-note="The alternative is holding the pin back until there are ten books listed, so the map never shows an empty box. I decided against it. A pin with zero books still tells a neighbor a box exists on that corner, which is all littlefreelibrary.org ever told them, so the floor here is the competition's ceiling.|It also means the curator gets the reward, their box on a map, before doing the boring part. Making them earn the pin by cataloguing first is how you get nobody to catalogue.">2</span>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-cur">
+			<span class="who">curator</span>
+			<a href="../app/add-book.html">Adds eight or ten books</a>, scanning or typing
+		</div>
+
+	</div>
+
+	<hr class="my-5" />
+
+	<h4>Where this flow can go wrong</h4>
+	<div class="flow">
+		<div class="alt mb-3">
+			<span class="lbl">wrong email typed</span><br />
+			Nothing arrives. They re register, which makes a second unverified
+			account. Harmless, since neither one is on the map.
+		</div>
+		<div class="alt mb-3">
+			<span class="lbl">link expires after 24 hours</span><br />
+			The email itself says to just sign up again, so the dead end has an
+			exit printed on it before they hit it.
+		</div>
+		<div class="alt mb-3">
+			<span class="lbl">two people register the same box</span><br />
+			Two pins, same corner. Nobody steps in, because there is no staff.
+			The fix is social, one of them deletes theirs.
+			<span class="pin" data-n="3"
+				data-title="Duplicates are a social problem, not a feature"
+				data-note="With no moderator there is nobody to merge two boxes or decide who the real curator is. I could build a claim dispute flow, and it would be three screens used roughly never, for a case where the two people involved live on the same block and can knock on a door.|So the design accepts a duplicate pin as the cost of having no authority. Writing that down as a deliberate choice is the point of this section, because otherwise it reads as a hole somebody forgot about.">3</span>
+		</div>
+		<div class="alt">
+			<span class="lbl">password forgotten months later</span><br />
+			Goes out to <a href="../auth/forgot.html">the reset flow</a>, which is
+			its own three pages.
+		</div>
+	</div>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - States of a copy</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="states">
+
+
+<nav class="navbar bg-light border-bottom">
+	<div class="container">
+		<a class="navbar-brand" href="../public/home.html">Neighbor Library</a>
+		<div>
+			<a class="btn btn-sm btn-outline-secondary" href="flow-signup.html">Sign up flow</a>
+			<a class="btn btn-sm btn-outline-secondary" href="flow-checkout.html">Borrow flow</a>
+			<a class="btn btn-sm btn-outline-secondary" href="states.html">States</a>
+			<a class="btn btn-sm btn-outline-secondary" href="policy.html">Honor system</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+
+	<h1>Every state one copy can be in</h1>
+	<p class="text-muted">
+		Four states. Everything in the product is a view of this.
+		<span class="pin" data-n="1"
+			data-title="Four states, and I argued myself down from seven"
+			data-note="The first version had reserved, on hold, damaged, and in repair, copied out of habit from how a real library works. None of them survive contact with a wooden box. You cannot reserve a book a stranger might take ten minutes before you arrive, and nobody repairs a free paperback, they throw it out or they do not.|What is left is the smallest set that still describes reality. Damaged is a note on the row, not a state, because a rough paperback is still on the shelf and still borrowable. Cutting three states deleted about six screens.">1</span>
+	</p>
+
+	<div class="states row g-3 my-4">
+		<div class="col-6 col-md-3">
+			<div class="st status-in">
+				<strong>On the shelf</strong>
+				<small>in the box, take it</small>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="st status-out">
+				<strong>Out</strong>
+				<small>somebody has it</small>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="st status-late">
+				<strong>Out a long time</strong>
+				<small>same as out, but red</small>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="st status-gone">
+				<strong>Gone</strong>
+				<small>stopped counting it</small>
+			</div>
+		</div>
+	</div>
+
+	<p class="small text-muted">
+		Three stored states and one computed from a date.
+		<span class="pin" data-n="2"
+			data-title="Out a long time is not really a fourth state"
+			data-note="It is the out state with elapsed time past the box's reminder window, computed rather than stored, so nothing has to flip it and why changing the window from two weeks to four in settings silently re colors rows instead of migrating anything.|I kept it on this diagram anyway because it is a state as far as anybody looking at the screen is concerned, and a diagram that hides it would not match the inventory table.">2</span>
+	</p>
+
+	<hr />
+
+	<h4>What moves a copy, and who can do it</h4>
+
+	<p class="legend mb-4">
+		<span><i style="border-left-width:8px;border-left-color:#1c7ed6;"></i>passerby, no account</span>
+		<span><i style="border-left-width:8px;border-left-color:#2f9e44;"></i>curator, signed in</span>
+		<span><i style="border-left-width:8px;border-left-color:#868e96;background:#f6f6f6;"></i>the system</span>
+	</p>
+
+
+	<div class="flow">
+
+		<div class="step by-cur">
+			<span class="who">curator</span>
+			<em>nothing</em> &rarr; <strong>on the shelf</strong><br />
+			<small class="text-muted">adds a donated book, scanning or typing</small>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-pass">
+			<span class="who">passerby</span>
+			<strong>on the shelf</strong> &rarr; <strong>out</strong><br />
+			<small class="text-muted">scans the lid code and checks it out</small>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-cur">
+			<span class="who">curator</span>
+			<strong>on the shelf</strong> &rarr; <strong>out</strong><br />
+			<small class="text-muted">notices the gap on the shelf, taps mark out</small>
+			<span class="pin" data-n="3"
+				data-title="Both roles can make the same transitions"
+				data-note="There is no transition only a curator may perform and none only a passerby may. That is unusual, and it falls out of having no authority in the system. The curator is not approving anything, they are just the person most likely to be standing at the box when the list is wrong.|It keeps the rules small. One table of four states and six transitions describes the entire product, and nobody has to look up who is allowed to do what.">3</span>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-system">
+			<span class="who">system</span>
+			<strong>out</strong> &rarr; <strong>out a long time</strong><br />
+			<small class="text-muted">just the date passing. no email, no status write</small>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-pass">
+			<span class="who">passerby</span>
+			<strong>out</strong> &rarr; <strong>on the shelf</strong><br />
+			<small class="text-muted">taps I put it back, from the receipt or the lid code</small>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-cur">
+			<span class="who">curator</span>
+			<strong>out a long time</strong> &rarr; <strong>gone</strong><br />
+			<small class="text-muted">decides it is not coming back. the only judgment call in here</small>
+		</div>
+		<div class="arrow">&darr;</div>
+
+		<div class="step by-cur">
+			<span class="who">curator or passerby</span>
+			<strong>gone</strong> &rarr; <strong>on the shelf</strong><br />
+			<small class="text-muted">it turned up. no re typing, no new row</small>
+		</div>
+
+	</div>
+
+	<hr class="my-5" />
+
+	<h4>Transitions I left out</h4>
+	<div class="flow">
+		<div class="alt mb-3">
+			<span class="lbl">out &rarr; gone, automatically</span><br />
+			A timer has no idea whether a book is at a cabin or in a recycling
+			bin, and the curator often actually knows. Nothing in this product
+			changes a status on a schedule.
+			<span class="pin" data-n="4"
+				data-title="No automatic transitions at all"
+				data-note="This is the single rule that keeps the whole thing honest. Every stored state change in the diagram is caused by a person pressing something, so the inventory is a record of what somebody claimed rather than what a clock assumed.|It does mean a neglected box slowly drifts out of date, so staleness is shown everywhere on the public side instead of being hidden. Admitting the list might be old is a better product than a list that keeps itself tidy by guessing.">4</span>
+		</div>
+		<div class="alt mb-3">
+			<span class="lbl">on the shelf &rarr; reserved</span><br />
+			Cut. A copy anybody can walk up and take cannot be held for somebody
+			who is twenty minutes away, and promising otherwise would be the
+			product's first real lie.
+		</div>
+		<div class="alt">
+			<span class="lbl">any state &rarr; deleted</span><br />
+			Cut. Gone already does the job and keeps the history, which the
+			<a href="../app/checkouts.html">log</a> depends on.
+		</div>
+	</div>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

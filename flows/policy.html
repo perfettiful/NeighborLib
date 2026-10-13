@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - The honor system</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="policy">
+
+
+<nav class="navbar bg-light border-bottom">
+	<div class="container">
+		<a class="navbar-brand" href="../public/home.html">Neighbor Library</a>
+		<div>
+			<a class="btn btn-sm btn-outline-secondary" href="flow-signup.html">Sign up flow</a>
+			<a class="btn btn-sm btn-outline-secondary" href="flow-checkout.html">Borrow flow</a>
+			<a class="btn btn-sm btn-outline-secondary" href="states.html">States</a>
+			<a class="btn btn-sm btn-outline-secondary" href="policy.html">Honor system</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+	<div class="row">
+		<div class="col-lg-8">
+
+			<h1>How this works</h1>
+			<p class="lead text-muted">
+				There are no rules to enforce and nobody to enforce them. This
+				page is all the rules there are.
+				<span class="pin" data-n="1"
+					data-title="A policy page that exists to say there is no policy"
+					data-note="Normally the project where somebody designs a lending system produces deposits, late fees, borrowing limits, damage liability, and a suspension process. I had all of that written down and threw it out, because every one of those rules needs somebody with the authority to apply it, and there is nobody.|What is left is a page that explains the absence. It is shorter than a terms of service and it is the honest description of a wooden box in a stranger's yard. Keeping it as a design page was the right call, since a reviewer will absolutely ask where the policies went.">1</span>
+			</p>
+
+			<h2 class="h4 mt-5">Two kinds of person</h2>
+
+			<p>
+				<strong>A curator</strong> keeps one box. They have the only kind of
+				account in the system. They add donated books, fix the list when it
+				drifts, and decide when something is gone. Nobody can edit their box
+				and nobody reviews it.
+			</p>
+
+			<p>
+				<strong>A passerby</strong> is everybody else. No account, no name, no
+				history. They can search every box, take any book, and mark things in
+				and out. They are not registered, not tracked, and not accountable to
+				anyone.
+				<span class="pin" data-n="2"
+					data-title="The passerby outranks the curator on purpose"
+					data-note="A passerby can change the status of a book in somebody else's inventory without proving who they are, which sounds like a bug. It is the design. The alternative is a curator who has to log every movement personally, and that is the job nobody volunteers for twice.|The worst a bad actor can do with it is mark a few books wrong in one box, and the curator can undo any of it in one tap. The upside is an inventory that updates itself. That trade is the product.">2</span>
+			</p>
+
+			<p>
+				That is the complete list. There is no staff account, no moderator,
+				no regional admin, and no support queue. If something needs a human
+				it needs the curator, and the curator is a neighbor with a drill and
+				some leftover paint.
+			</p>
+
+			<h2 class="h4 mt-5">Things that do not exist</h2>
+
+			<ul>
+				<li><strong>No late fees.</strong> Nothing to charge and no card on file.</li>
+				<li><strong>No due dates.</strong> Two weeks is a suggestion the curator sets and can turn off.</li>
+				<li><strong>No borrowing limit.</strong> Take six books if you want six books.</li>
+				<li><strong>No deposits.</strong> The books cost nothing and are worth nothing.</li>
+				<li><strong>No accounts for borrowers.</strong> Nothing to suspend, nothing to ban.</li>
+				<li><strong>No approval of listings.</strong> Whatever a curator types is what shows.</li>
+				<li><strong>No reporting a neighbor.</strong> There is nowhere for a report to go.</li>
+			</ul>
+
+			<p class="text-muted">
+				Each line on that list is a handful of screens that do not need designing.
+				<span class="pin" data-n="3"
+					data-title="Listing the absences instead of staying quiet about them"
+					data-note="Everybody arriving here has used a library, so they bring assumptions about fines and limits whether the site mentions them or not. Saying no late fees out loud is more useful than saying nothing, because silence reads as a fee that has not been explained yet.|It is also a design constraint I can be held to. Every one of these lines rules out screens, and the reason the page count in this project is screens and flows instead of a billing section is sitting in this list.">3</span>
+			</p>
+
+			<h2 class="h4 mt-5">What a curator is actually signing up for</h2>
+
+			<p>
+				Adding books when somebody drops a bag off. Glancing at the list
+				every few weeks. Marking something gone when it has clearly gone.
+				That is it. A box that nobody updates for three weeks is not
+				breaking any rule, it just
+				<a href="../public/library.html">says so on its page</a>.
+				<span class="pin" data-n="4"
+					data-title="Staleness is the only consequence in the system"
+					data-note="With no fees and no accounts, the only thing the design can do is visibility. A box whose list is current looks green on the map and worth walking to. A box nobody has touched since spring goes gray with the date showing.|That is not a punishment, it is just the truth being published, and it is the only pressure available in a product with no authority. It also means the incentive points at the one behavior that matters, which is keeping the list honest.">4</span>
+			</p>
+
+			<h2 class="h4 mt-5">The one thing that is a rule</h2>
+
+			<p>
+				A box's street address is collected to place the map pin and is
+				never published. Neighbors see the block. A curator gets a first
+				name and no contact method, because they volunteered a corner of
+				their yard, not their inbox.
+				<span class="pin" data-n="5"
+					data-title="The only hard line in the product"
+					data-note="Everything else here is a suggestion, and this one is not. The boxes are in front yards, and a public page that prints a house number plus a name plus an email is a directory of where specific families live, built out of their generosity.|It shows up as a design constraint in four places. The address field's help text at signup, the published string under the field in settings, the block level map art rather than a point, and a box page with a first name and no form. That repetition is on purpose, because it is the one promise that would be expensive to break.">5</span>
+			</p>
+
+			<p class="small text-muted mt-5">
+				<a href="flow-signup.html">How registering works</a> &middot;
+				<a href="flow-checkout.html">How borrowing works</a> &middot;
+				<a href="states.html">What states a book can be in</a> &middot;
+				<a href="../notes.html">All the notes in one printable page</a>
+			</p>
+
+		</div>
+	</div>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

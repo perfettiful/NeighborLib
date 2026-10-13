@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Grabbing cursor, the book pulled off the shelf</title>
+
+<!-- the pair to book-loose. same shelf, same three books, except the
+     middle one is out and there is a gap where it was.
+     the gap does the work, so it is left deliberately wide and the book
+     is lifted well clear of it. an earlier version had the book resting
+     just above the others and at actual size it read as a seesaw.
+     hotspot 16 16. -->
+
+<g fill="none" stroke="#ffffff" stroke-width="5"
+	stroke-linejoin="round" stroke-linecap="round">
+	<path d="M4,27 H28" />
+	<path d="M6,14 h5 v12 h-5 z" />
+	<path d="M21,14 h5 v12 h-5 z" />
+	<g transform="rotate(-12 16 8)"><path d="M7,4.5 h18 v6.5 h-18 z" /></g>
+</g>
+
+<g stroke="#2b2b2b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+	<path d="M6,14 h5 v12 h-5 z" fill="#fffdf7" />
+	<path d="M21,14 h5 v12 h-5 z" fill="#fffdf7" />
+	<g transform="rotate(-12 16 8)">
+		<path d="M7,4.5 h18 v6.5 h-18 z" fill="#d6336c" />
+		<path d="M10.5,4.5 v6.5" stroke-width="1.6" />
+	</g>
+	<path d="M4,27 H28" fill="none" stroke-width="2.6" />
+</g>
+</svg>

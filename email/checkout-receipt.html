@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Checkout receipt</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="checkout-receipt">
+
+
+
+<div class="mailframe my-4">
+	<dl class="mailhead mb-0">
+		<dt>From</dt><dd>Neighbor Library &lt;hello@neighborlibrary.example&gt;</dd>
+		<dt>To</dt><dd>you (whoever took the book)</dd>
+		<dt>Subject</dt><dd><strong>You took Braiding Sweetgrass from the Como Ave box</strong></dd>
+	</dl>
+	<div class="mailbody">
+		<p>Enjoy it. Bring it back when you're done.</p>
+
+		<p>
+			<strong>Braiding Sweetgrass</strong>, Robin Wall Kimmerer<br />
+			<span class="text-muted">Como Ave box, 1400 block &middot; taken Oct 11</span>
+		</p>
+
+		<p>
+			<a class="btn btn-primary" href="../flows/flow-checkout.html">I put it back</a>
+			<span class="pin" data-n="1"
+				data-title="The receipt is really just a return button"
+				data-note="A passerby gave an email address for exactly one reason, to not have to find this site again when they are standing at the box with the book in their hand. So the whole email is one link that marks it returned.|Keeping the link alive indefinitely matters. A book that comes back in four months should still be markable, because the alternative is an inventory that slowly fills with copies listed as out forever.">1</span>
+		</p>
+
+		<p class="text-muted">
+			We'll nudge you once in two weeks. That's the only other email
+			you'll get.
+			<span class="pin" data-n="2"
+				data-title="Promise the exact number of emails"
+				data-note="Nobody hands over an address to a stranger's book box without wondering what they just signed up for. Saying one nudge, two weeks, that is all is a specific promise that is easy to keep and easy to check.|And it is the honest ceiling. Any more than that and a free paperback starts costing attention, and that is the fastest way to make people stop checking books out at all.">2</span>
+		</p>
+
+		<hr />
+
+		<p class="small text-muted">
+			There is no account, no due date you can be punished for, and no
+			late fee. Two weeks is a suggestion. Keep it a month if you need to.
+			<span class="pin" data-n="3"
+				data-title="Say there is no penalty, because there isn't"
+				data-note="Every borrowing interface people have ever used had fines behind it, so they read due in two weeks as a threat. There is nothing behind this one. Pretending otherwise would be a bluff the system cannot back, and the first person who tests it learns the whole thing is theater.|Saying it instead buys something real. A person who knows nothing bad happens is more likely to tell the truth later, and that is the only way the data stays good.">3</span>
+		</p>
+
+	</div>
+</div>
+
+<p class="mailback no-print">
+	<a href="../flows/flow-checkout.html">&larr; back to the borrow flow</a> &middot;
+	<a href="../notes.html">the reference</a>
+</p>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

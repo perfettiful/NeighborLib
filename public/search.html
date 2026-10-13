@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Search results</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="search">
+
+
+<!-- nav -->
+<nav class="navbar navbar-expand-lg bg-light border-bottom">
+	<div class="container">
+		<a class="navbar-brand" href="../public/home.html">Neighbor Library</a>
+		<div>
+			<a class="btn btn-sm btn-outline-secondary" href="../public/map.html">Map</a>
+			<a class="btn btn-sm btn-outline-secondary" href="../auth/signin.html">Sign in</a>
+			<a class="btn btn-sm btn-primary" href="../auth/signup.html">Register a box</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+
+	<form class="row g-2 mb-4" action="search.html">
+		<div class="col-sm-6">
+			<label class="visually-hidden" for="q">Search</label>
+			<input class="form-control" id="q" name="q" value="kimmerer" />
+		</div>
+		<div class="col-sm-3">
+			<label class="visually-hidden" for="near">Near</label>
+			<input class="form-control" id="near" name="near" value="55113" />
+		</div>
+		<div class="col-sm-auto">
+			<button class="btn btn-primary" type="submit">Search</button>
+		</div>
+	</form>
+
+
+	<div class="row">
+
+		<!-- filters -->
+		<div class="col-md-3">
+			<h5>Narrow it down
+				<span class="pin" data-n="1"
+					data-title="Only four filters, and distance is one of them"
+					data-note="A catalog page usually grows filters forever. Genre, language, format, publication year, condition. I cut it to distance, availability, box, and genre because the collection is tiny. Filtering 34 books by publication decade is pointless.|Distance comes first because it is the only filter that changes whether somebody will actually go get the book. A perfect match four miles away is a worse result than a decent match on the next block.">1</span>
+			</h5>
+
+			<p class="small text-muted mb-1">Walking distance</p>
+			<div class="mb-3">
+				<label class="visually-hidden" for="dist">Distance</label>
+				<input type="range" class="form-range" id="dist" min="1" max="20" value="8" />
+				<small class="text-muted">within 0.8 mi</small>
+			</div>
+
+			<p class="small text-muted mb-1">Availability</p>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" id="f1" checked />
+				<label class="form-check-label" for="f1">On the shelf now</label>
+			</div>
+			<div class="form-check mb-3">
+				<input class="form-check-input" type="checkbox" id="f2" checked />
+				<label class="form-check-label" for="f2">Checked out
+					<span class="pin" data-n="2"
+						data-title="Checked out is on by default"
+						data-note="This checkbox is on when you arrive, which is a real decision and not laziness. If it defaulted off, the catalog would look emptier than it is and nobody would learn that the box two streets over has the thing they want, just not today.|The cost is that some results are not actionable right now. I decided a slightly noisier list beats a list that quietly hides a third of the collection.">2</span>
+				</label>
+			</div>
+
+			<p class="small text-muted mb-1">Box</p>
+			<select class="form-select form-select-sm mb-3">
+				<option>All 6 nearby</option>
+				<option>Como Ave box</option>
+				<option>Hoyt &amp; Snelling</option>
+			</select>
+
+			<a href="map.html" class="btn btn-sm btn-outline-secondary">See these on a map</a>
+		</div>
+
+
+		<!-- results -->
+		<div class="col-md-9">
+
+			<p class="text-muted">
+				3 matches in 6 boxes within 0.8 mi
+				<span class="pin" data-n="3"
+					data-title="Say how wide the net was"
+					data-note="Three results reads as a broken search unless you also say three out of what. Showing in 6 boxes within 0.8 mi turns a thin result into an honest one, and it tells the reader the fix is to widen the distance rather than retype the title.|It also sets expectations before anybody walks anywhere. This is a handful of book boxes, not a county library system.">3</span>
+			</p>
+
+			<div class="card mb-3 status-in">
+				<div class="card-body d-flex">
+					<span class="cover">cover</span>
+					<div class="ms-3">
+						<h5 class="mb-1"><a href="book.html">Braiding Sweetgrass</a></h5>
+						<p class="mb-1 text-muted small">Robin Wall Kimmerer &middot; paperback</p>
+						<p class="mb-0">
+							<span class="badge bg-success">On the shelf</span>
+							<span class="text-muted small">Como Ave box &middot; 0.3 mi &middot; added Oct 6</span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="card mb-3 status-out">
+				<div class="card-body d-flex">
+					<span class="cover">cover</span>
+					<div class="ms-3">
+						<h5 class="mb-1"><a href="book.html">Gathering Moss</a></h5>
+						<p class="mb-1 text-muted small">Robin Wall Kimmerer &middot; hardcover</p>
+						<p class="mb-0">
+							<span class="badge bg-warning text-dark">Checked out</span>
+							<span class="text-muted small">Hoyt &amp; Snelling &middot; 0.6 mi &middot; due back Oct 19</span>
+							<span class="pin" data-n="4"
+								data-title="Due back is a guess and should sound like one"
+								data-note="Nothing in this system can make a neighbor bring a book back on a particular day. There is no card, no fine, no account to freeze. The date is the end of a two week window the curator picked, nothing more.|So the wording stays soft. Due back Oct 19, not Available Oct 19. If the copy promised availability the product would be lying roughly as often as people are late, which with a book box is often.">4</span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="card mb-3 status-in">
+				<div class="card-body d-flex">
+					<span class="cover">cover</span>
+					<div class="ms-3">
+						<h5 class="mb-1"><a href="book.html">The Serviceberry</a></h5>
+						<p class="mb-1 text-muted small">Robin Wall Kimmerer &middot; paperback</p>
+						<p class="mb-0">
+							<span class="badge bg-success">On the shelf</span>
+							<span class="text-muted small">Little Bear (Front St) &middot; 1.1 mi</span>
+							<span class="badge bg-light text-dark">list is 3 weeks old</span>
+							<span class="pin" data-n="5"
+								data-title="Staleness rides along with the result"
+								data-note="The box page shows when its inventory was last touched, but by the time somebody is reading search results they are not on the box page. The warning has to travel with the individual result or it does not get seen.|It is not a red error. A three week old list is still the best information available, it just comes with a shrug. Loud enough to notice, quiet enough that it does not read as a failure.">5</span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<hr />
+			<p class="text-muted small">
+				Nothing else matched. You could
+				<a href="search.html">widen to 2 miles</a> or
+				<a href="empty.html">see what an empty result looks like</a>.
+			</p>
+
+		</div>
+	</div>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

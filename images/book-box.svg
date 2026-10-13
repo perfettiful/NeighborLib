@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 240" width="220" height="240"
+	role="img" aria-labelledby="bbTitle">
+
+<title id="bbTitle">Clip art of a little free library box on a post</title>
+
+<!-- plain clip art of a book box. drawn on purpose rather than pulled off the
+     internet. the wobbly stroke is to match the sketchy theme. -->
+
+<g fill="none" stroke="#2b2b2b" stroke-width="3" stroke-linejoin="round">
+
+	<!-- post -->
+	<path d="M98 150 l4 78 h18 l4 -78 z" fill="#b08968" />
+
+	<!-- grass -->
+	<path d="M60 228 q14 -10 26 0 q16 -12 30 0 q16 -12 32 0" stroke="#5f8a3f" fill="none" />
+
+	<!-- roof. solid, not an outline band, so the sign has something to sit on -->
+	<path d="M20 72 L110 16 L200 72 Z" fill="#8b2f2f" />
+
+	<!-- body -->
+	<path d="M38 68 h144 v84 h-144 z" fill="#f0e6d2" />
+
+	<!-- glass door -->
+	<path d="M50 78 h120 v64 h-120 z" fill="#dceaf2" />
+	<line x1="110" y1="78" x2="110" y2="142" stroke-width="2" />
+
+	<!-- books on the shelf -->
+	<g stroke-width="2">
+		<path d="M58 104 h10 v34 h-10 z" fill="#c92a2a" />
+		<path d="M70 100 h9  v38 h-9  z" fill="#1c7ed6" />
+		<path d="M81 108 h11 v30 h-11 z" fill="#2f9e44" />
+		<path d="M94 102 h8  v36 h-8  z" fill="#f59f00" />
+		<path d="M118 106 h10 v32 h-10 z" fill="#5f3dc4" />
+		<path d="M130 100 h12 v38 h-12 z" fill="#e8590c" />
+		<path d="M144 110 h9  v28 h-9  z" fill="#868e96" />
+	</g>
+
+	<!-- shelf line -->
+	<line x1="50" y1="140" x2="170" y2="140" stroke-width="2" />
+
+	<!-- knob -->
+	<circle cx="162" cy="110" r="3.5" fill="#2b2b2b" />
+
+</g>
+
+<text x="110" y="62" font-family="Helvetica,Arial,sans-serif" font-size="12"
+	font-weight="bold" fill="#fff" text-anchor="middle">TAKE ONE</text>
+
+</svg>

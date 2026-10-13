@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Not allowed cursor, a closed book struck through</title>
+
+<!-- links that go nowhere in the prototype. hotspot 16 16, dead centre,
+     because the whole glyph is the message rather than any one point of
+     it. -->
+
+<g transform="translate(16,16)">
+
+	<!-- a shut book, seen face on, spine to the left -->
+	<g stroke="#ffffff" stroke-width="4" stroke-linejoin="round" fill="none">
+		<path d="M-7,-9 h12 a2,2 0 0 1 2,2 v14 a2,2 0 0 1 -2,2 h-12 z" />
+	</g>
+	<path d="M-7,-9 h12 a2,2 0 0 1 2,2 v14 a2,2 0 0 1 -2,2 h-12 z"
+		fill="#fffdf7" stroke="#2b2b2b" stroke-width="2" stroke-linejoin="round" />
+	<path d="M-4,-9 v18" stroke="#2b2b2b" stroke-width="1.6" />
+
+	<!-- the strike through -->
+	<circle r="12.5" fill="none" stroke="#ffffff" stroke-width="5" />
+	<circle r="12.5" fill="none" stroke="#c92a2a" stroke-width="3" />
+	<path d="M-8.8,-8.8 L8.8,8.8" stroke="#ffffff" stroke-width="5.5"
+		stroke-linecap="round" />
+	<path d="M-8.8,-8.8 L8.8,8.8" stroke="#c92a2a" stroke-width="3.4"
+		stroke-linecap="round" />
+
+</g>
+</svg>

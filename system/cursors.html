@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Cursors</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="cursors">
+
+
+<nav class="navbar bg-light border-bottom">
+	<div class="container">
+		<a class="navbar-brand" href="../public/home.html">Neighbor Library</a>
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">The design notes</a>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+
+	<h1>Cursors</h1>
+	<p class="lead text-muted">
+		Ten drawings on one idea, a reading desk. Eight states in use, one
+		drawn and switched off, one cut.
+	</p>
+
+	<p>
+		Hover the hatched strip in any card to try that cursor for real, and
+		hold the mouse down on one to see the pressed frame. Each is shown big
+		so you can tell what it is, and at 32 pixels on both backgrounds,
+		which is the only size it is ever actually used at.
+		<span class="pin" data-n="1"
+			data-title="Judge them at the size they get used"
+			data-note="A cursor set is the easiest thing in the world to design badly, because you draw it at 400 percent where every curve looks considered. At actual size most of that turns into three grey pixels.|So everything here is drawn at 32 by 32 from the start, and this page puts the real size next to the big one. The first pencil was lovely at 200 percent and read as a stick at 32. It got shorter and fatter and is now the clearest glyph in the set.">1</span>
+	</p>
+
+
+	<h2 class="h4 mt-5">In use</h2>
+	<p class="text-muted">Eight states, applied across the rest of the prototype.</p>
+
+	<div class="row g-3">
+
+		<div class="col-md-6">
+			<div class="swatch">
+				<div class="d-flex align-items-center mb-2">
+					<img class="big" src="../images/cursors/bookmark.svg" alt="" />
+					<div class="ms-3">
+						<p class="mb-1"><code>default</code></p>
+						<p class="small text-muted mb-1">hotspot 3 2 &middot; <code>bookmark.svg</code></p>
+						<span class="onpaper"><img class="real" src="../images/cursors/bookmark.svg" alt="" /></span>
+						<span class="ondark"><img class="real" src="../images/cursors/bookmark.svg" alt="" /></span>
+						<span class="small text-muted ms-1">actual size</span>
+					</div>
+				</div>
+				<p class="small mb-1"><strong>Where</strong> everything. Set once on <code>body</code> and inherited.</p>
+				<p class="small text-muted mb-0"><strong>Why</strong> a bookmark is already the shape of a cursor once you tip it over. The swallowtail notch says bookmark, the point still lands where an arrow point belongs, so it is a joke you can still aim with.</p>
+				<div class="try cur-default-demo">hover here to try it</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="swatch">
+				<div class="d-flex align-items-center mb-2">
+					<img class="big" src="../images/cursors/open-book.svg" alt="" />
+					<div class="ms-3">
+						<p class="mb-1"><code>pointer</code></p>
+						<p class="small text-muted mb-1">hotspot 4 3 &middot; <code>open-book.svg</code></p>
+						<span class="onpaper"><img class="real" src="../images/cursors/open-book.svg" alt="" /></span>
+						<span class="ondark"><img class="real" src="../images/cursors/open-book.svg" alt="" /></span>
+						<span class="small text-muted ms-1">actual size</span>
+					</div>
+				</div>
+				<p class="small mb-1"><strong>Where</strong> links, buttons, labels, checkboxes, the select menu.</p>
+				<p class="small text-muted mb-0"><strong>Why</strong> the first version was a symmetric open book and it had no point at all, so nothing told you where the click would land. Now a page is caught halfway through turning and its lifted corner is the point.</p>
+				<div class="try cur-pointer-demo">hover here to try it</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="swatch">
+				<div class="d-flex align-items-center mb-2">
+					<img class="big" src="../images/cursors/open-book-press.svg" alt="" />
+					<div class="ms-3">
+						<p class="mb-1"><code>a:active</code></p>
+						<p class="small text-muted mb-1">hotspot 4 3 &middot; <code>open-book-press.svg</code></p>
+						<span class="onpaper"><img class="real" src="../images/cursors/open-book-press.svg" alt="" /></span>
+						<span class="ondark"><img class="real" src="../images/cursors/open-book-press.svg" alt="" /></span>
+						<span class="small text-muted ms-1">actual size</span>
+					</div>
+				</div>
+				<p class="small mb-1"><strong>Where</strong> the same things, while the mouse is held down.</p>
+				<p class="small text-muted mb-0"><strong>Why</strong> the page lands and the next one starts to lift. Together with the frame above that is the page turn, driven by the mouse instead of a timeline. <span class="pin" data-n="2" data-title="The flip is two frames, not an animation" data-note="The obvious way to do a page turn is an animated svg. Browsers will not do it. A cursor image is rasterised once and any animation inside it, SMIL or CSS, is simply ignored, so an animated cursor file is just a still of frame one.|The way out is to let the user drive it. Pointer is the page mid turn, active is the page landing, and pressing the mouse is what moves between them. Two files and one css rule, and the motion now means something rather than looping at nobody.|Both frames put their point on 4 3. If the pressed frame had nothing at the hotspot the cursor would look like it had jumped off its own tip, which is why the next page is already lifting in it.">2</span></p>
+				<div class="try cur-pointer-demo">hover here to try it</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="swatch">
+				<div class="d-flex align-items-center mb-2">
+					<img class="big" src="../images/cursors/pencil.svg" alt="" />
+					<div class="ms-3">
+						<p class="mb-1"><code>text</code></p>
+						<p class="small text-muted mb-1">hotspot 6 28 &middot; <code>pencil.svg</code></p>
+						<span class="onpaper"><img class="real" src="../images/cursors/pencil.svg" alt="" /></span>
+						<span class="ondark"><img class="real" src="../images/cursors/pencil.svg" alt="" /></span>
+						<span class="small text-muted ms-1">actual size</span>
+					</div>
+				</div>
+				<p class="small mb-1"><strong>Where</strong> the text and email boxes on the sign up, search and add a book forms.</p>
+				<p class="small text-muted mb-0"><strong>Why</strong> the graphite tip is the hotspot, so the pencil point is literally the caret. It leans up and right because what you have typed sits to the left, and a pencil leaning the other way would cover it.</p>
+				<div class="try cur-text-demo">hover here to try it</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="swatch">
+				<div class="d-flex align-items-center mb-2">
+					<img class="big" src="../images/cursors/bookmark-help.svg" alt="" />
+					<div class="ms-3">
+						<p class="mb-1"><code>help</code></p>
+						<p class="small text-muted mb-1">hotspot 3 2 &middot; <code>bookmark-help.svg</code></p>
+						<span class="onpaper"><img class="real" src="../images/cursors/bookmark-help.svg" alt="" /></span>
+						<span class="ondark"><img class="real" src="../images/cursors/bookmark-help.svg" alt="" /></span>
+						<span class="small text-muted ms-1">actual size</span>
+					</div>
+				</div>
+				<p class="small mb-1"><strong>Where</strong> the numbered dots on every page.</p>
+				<p class="small text-muted mb-0"><strong>Why</strong> the dots explain rather than navigate, and help is the state that means exactly that. The same bookmark as default with a badge, which is how help cursors have worked since the nineties.</p>
+				<div class="try cur-help-demo">hover here to try it</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="swatch">
+				<div class="d-flex align-items-center mb-2">
+					<img class="big" src="../images/cursors/book-no.svg" alt="" />
+					<div class="ms-3">
+						<p class="mb-1"><code>not-allowed</code></p>
+						<p class="small text-muted mb-1">hotspot 16 16 &middot; <code>book-no.svg</code></p>
+						<span class="onpaper"><img class="real" src="../images/cursors/book-no.svg" alt="" /></span>
+						<span class="ondark"><img class="real" src="../images/cursors/book-no.svg" alt="" /></span>
+						<span class="small text-muted ms-1">actual size</span>
+					</div>
+				</div>
+				<p class="small mb-1"><strong>Where</strong> the four links in the prototype that go nowhere on purpose.</p>
+				<p class="small text-muted mb-0"><strong>Why</strong> a shut book behind a strike through. Everything else in the set is a book you can do something with, so a book you cannot open is the obvious opposite.</p>
+				<div class="try cur-no-demo">hover here to try it</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="swatch">
+				<div class="d-flex align-items-center mb-2">
+					<img class="big" src="../images/cursors/book-loose.svg" alt="" />
+					<div class="ms-3">
+						<p class="mb-1"><code>grab</code></p>
+						<p class="small text-muted mb-1">hotspot 16 16 &middot; <code>book-loose.svg</code></p>
+						<span class="onpaper"><img class="real" src="../images/cursors/book-loose.svg" alt="" /></span>
+						<span class="ondark"><img class="real" src="../images/cursors/book-loose.svg" alt="" /></span>
+						<span class="small text-muted ms-1">actual size</span>
+					</div>
+				</div>
+				<p class="small mb-1"><strong>Where</strong> the distance slider on the search page.</p>
+				<p class="small text-muted mb-0"><strong>Why</strong> three spines on a shelf with the middle one tipped forward, which is what you do to a book a second before you pull it out. The slider is the one thing in the prototype you actually drag. <span class="pin" data-n="3" data-title="The slider kept the system hand for ages" data-note="For a long time the slider showed the plain pointing hand and I could not work out why, because the rule on input type range looked right and every other control had taken its cursor without complaint.|Bootstrap sets cursor: pointer on the slider track, and it does it through a pseudo element. A rule on the element cannot reach a pseudo element, so the element rule and the pseudo rule were never in competition. The pseudo one simply won by being the only one that applied there.|The fix needs four rules rather than one, because the track and the thumb are separate pseudo elements and each browser spells them differently. They also have to be four separate rules. Put the webkit and the moz spellings in one selector list and the browser throws the whole thing out, since it does not recognise the other vendor's half.">3</span></p>
+				<div class="try cur-grab">hover here to try it</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="swatch">
+				<div class="d-flex align-items-center mb-2">
+					<img class="big" src="../images/cursors/book-held.svg" alt="" />
+					<div class="ms-3">
+						<p class="mb-1"><code>grabbing</code></p>
+						<p class="small text-muted mb-1">hotspot 16 16 &middot; <code>book-held.svg</code></p>
+						<span class="onpaper"><img class="real" src="../images/cursors/book-held.svg" alt="" /></span>
+						<span class="ondark"><img class="real" src="../images/cursors/book-held.svg" alt="" /></span>
+						<span class="small text-muted ms-1">actual size</span>
+					</div>
+				</div>
+				<p class="small mb-1"><strong>Where</strong> the same slider, while you are dragging it.</p>
+				<p class="small text-muted mb-0"><strong>Why</strong> the same shelf with the book out and a gap where it was. The gap carries the meaning, so it is wide and the book is lifted clear. An earlier version read as a seesaw.</p>
+				<div class="try cur-grabbing">hover here to try it</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<h2 class="h4 mt-5">Drawn, specified, switched off</h2>
+	<p class="text-muted">
+		One state left with nothing honest to attach it to.
+		<span class="pin" data-n="4"
+			data-title="A cursor is a promise"
+			data-note="A cursor is the cheapest promise an interface can make and one of the easiest to break. Grab says this moves. Progress says wait and it will finish. Put either on something that does not do that and you have lied to somebody before they have even clicked.|I could have put grab on the map and it would have looked thorough. The map is a picture. So all three are drawn, specified in the stylesheet, and left unattached, and this page is where that gets written down rather than quietly forgotten.">4</span>
+	</p>
+
+	<div class="row g-3">
+
+		<div class="col-md-6">
+			<div class="swatch">
+				<div class="d-flex align-items-center mb-2">
+					<img class="big" src="../images/cursors/book-stack.svg" alt="" />
+					<div class="ms-3">
+						<p class="mb-1"><code>progress</code></p>
+						<p class="small text-muted mb-1">hotspot 16 16 &middot; <code>book-stack.svg</code></p>
+						<span class="onpaper"><img class="real" src="../images/cursors/book-stack.svg" alt="" /></span>
+						<span class="ondark"><img class="real" src="../images/cursors/book-stack.svg" alt="" /></span>
+						<span class="small text-muted ms-1">actual size</span>
+					</div>
+				</div>
+				<p class="small mb-1"><strong>Where</strong> nothing. No page here is slow enough to need it.</p>
+				<p class="small text-muted mb-0"><strong>Why</strong> a pile waiting to be shelved. It had to mean waiting without moving, since cursors cannot animate, so a spinner was never on the table.</p>
+				<div class="try cur-progress">hover here to try it</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<h2 class="h4 mt-5">Cut</h2>
+
+	<div class="row g-3">
+		<div class="col-md-6">
+			<div class="swatch">
+				<div class="d-flex align-items-center mb-2">
+					<img class="big" src="../images/cursors/open-book-alert.svg" alt="" />
+					<div class="ms-3">
+						<p class="mb-1"><code>pointer</code>, badged</p>
+						<p class="small text-muted mb-1"><code>open-book-alert.svg</code></p>
+						<span class="onpaper"><img class="real"
+							src="../images/cursors/open-book-alert.svg" alt="" /></span>
+						<span class="ondark"><img class="real"
+							src="../images/cursors/open-book-alert.svg" alt="" /></span>
+						<span class="small text-muted ms-1">actual size</span>
+					</div>
+				</div>
+				<p class="small mb-0">
+					The pointer with a badge, to say out loud that none of these
+					links do anything. A good drawing of the wrong idea.
+					<span class="pin" data-n="5"
+						data-title="Why the badged pointer did not ship"
+						data-note="An exclamation mark means something has gone wrong. Hanging one off the pointer would put a warning on every link in the product, firing hundreds of times a session, for a condition that is not an error and never changes. The bar at the top of every page already says nothing here works, once, quietly, which is the right number of times to say it.|It also breaks the set's own grammar. A badge is meant to mark the exception. Badge the most common cursor on the site and the badge stops meaning anything. Help earned one because the dots really are different from links.">5</span>
+				</p>
+			</div>
+		</div>
+	</div>
+
+
+	<hr class="my-5" />
+
+	<h2 class="h4">Every other cursor value, and why it is not here</h2>
+	<p class="text-muted">
+		CSS has about thirty five of these. Most describe things this product
+		does not do.
+		<span class="pin" data-n="6"
+			data-title="The list is the argument"
+			data-note="Going through the whole list was worth doing because it forces the question the other way round. Not what could I draw, but what does this interface actually let somebody do. The answer turned out to be click, type, read, and nothing else.|No canvas, no spreadsheet, no drag and drop, no resizable anything, no zoom. Thirty five values collapse to six. That is a fact about the product rather than about the cursors, and it is the kind of thing a page like this is for.">6</span>
+	</p>
+
+	<div class="table-responsive">
+	<table class="table table-sm align-middle">
+		<thead><tr><th>value</th><th>here?</th><th>why</th></tr></thead>
+		<tbody>
+			<tr class="table-success"><td><code>default</code></td><td class="small">used</td><td class="small text-muted">the body cursor</td></tr>
+			<tr class="table-success"><td><code>pointer</code></td><td class="small">used</td><td class="small text-muted">links, buttons, labels, checkboxes, select</td></tr>
+			<tr class="table-success"><td><code>pointer, held</code></td><td class="small">used</td><td class="small text-muted">through <code>:active</code>, the second frame of the page turn</td></tr>
+			<tr class="table-success"><td><code>text</code></td><td class="small">used</td><td class="small text-muted">the form fields</td></tr>
+			<tr class="table-success"><td><code>help</code></td><td class="small">used</td><td class="small text-muted">the numbered dots</td></tr>
+			<tr class="table-success"><td><code>not-allowed</code></td><td class="small">used</td><td class="small text-muted">the four links that go nowhere</td></tr>
+			<tr class=""><td><code>progress</code></td><td class="small">drawn, off</td><td class="small text-muted">nothing here is slow</td></tr>
+			<tr class=""><td><code>wait</code></td><td class="small">no</td><td class="small text-muted">same as progress, and nothing ever blocks the whole page</td></tr>
+			<tr class="table-success"><td><code>grab</code></td><td class="small">used</td><td class="small text-muted">the distance slider, through its track and thumb pseudo elements</td></tr>
+			<tr class="table-success"><td><code>grabbing</code></td><td class="small">used</td><td class="small text-muted">the same slider while you drag it</td></tr>
+			<tr class=""><td><code>zoom-in, zoom-out</code></td><td class="small">no</td><td class="small text-muted">the map is a flat picture and does not zoom</td></tr>
+			<tr class=""><td><code>move</code></td><td class="small">no</td><td class="small text-muted">nothing can be repositioned</td></tr>
+			<tr class=""><td><code>copy, alias, no-drop</code></td><td class="small">no</td><td class="small text-muted">there is no drag and drop anywhere in the product</td></tr>
+			<tr class=""><td><code>crosshair</code></td><td class="small">no</td><td class="small text-muted">no canvas, no plotting, nothing to aim at precisely</td></tr>
+			<tr class=""><td><code>cell</code></td><td class="small">no</td><td class="small text-muted">the inventory is a table to read, not a spreadsheet to select ranges in</td></tr>
+			<tr class=""><td><code>vertical-text</code></td><td class="small">no</td><td class="small text-muted">no vertical writing mode</td></tr>
+			<tr class=""><td><code>context-menu</code></td><td class="small">no</td><td class="small text-muted">no custom right click menus</td></tr>
+			<tr class=""><td><code>all-scroll</code></td><td class="small">no</td><td class="small text-muted">no pannable surface</td></tr>
+			<tr class=""><td><code>the 13 resize values</code></td><td class="small">no</td><td class="small text-muted">nothing is resizable. col-resize and row-resize would need a table you can drag the edges of</td></tr>
+			<tr class=""><td><code>none</code></td><td class="small">no</td><td class="small text-muted">deliberately. hiding the cursor on a page full of links would be hostile</td></tr>
+			<tr class=""><td><code>auto</code></td><td class="small">no</td><td class="small text-muted">replaced by <code>default</code> on body, which is what makes the set possible</td></tr>
+		</tbody>
+	</table>
+	</div>
+
+	<p class="small text-muted">
+		One side effect worth naming. Setting <code>default</code> on
+		<code>body</code> means paragraphs get the bookmark rather than the
+		I beam a browser would normally show over selectable text.
+		<span class="pin" data-n="7"
+			data-title="Prose keeps the bookmark, and that is on purpose"
+			data-note="Overriding the body cursor takes the I beam away from ordinary text, which is a real loss, since the I beam is how people know they can select and copy. The honest options were to hand prose back to the browser, or to give it the pencil.|The pencil is wrong, because it means you can write here and you cannot. The bookmark is right, because the bookmark is the reading cursor and prose is the thing you read. Text still selects exactly as it did, it just does not advertise it, which is the price of the set and worth naming rather than hiding.">7</span>
+	</p>
+
+
+	<hr class="my-5" />
+
+	<div class="row">
+		<div class="col-lg-8">
+
+			<h2 class="h4">Three rules the drawings had to obey</h2>
+
+			<p>
+				<strong>32 by 32, and not a pixel more.</strong>
+				Browsers cap cursors there and ignore anything bigger instead of
+				scaling it down, so a 64 pixel drawing does not appear at all.
+				Drawing at final size kills any detail thinner than about two
+				pixels. The open book lost its page curl and the bookmark lost
+				its stitching, and both got better.
+			</p>
+
+			<p>
+				<strong>Pale body, dark outline.</strong>
+				The curator side has a near black nav and the public side is
+				cream. My first bookmark was solid ink and vanished into that
+				bar, leaving only its halo behind. Every glyph is now drawn
+				twice, a fat white stroke underneath and the real thing on top.
+				That is why system cursors have looked like this since 1984.
+				<span class="pin" data-n="8"
+					data-title="Every glyph is drawn twice"
+					data-note="The white outline under each shape is not decoration, it is the thing that keeps a cursor findable when the background happens to match it. It costs one duplicated path per glyph.|I only caught the problem by putting the whole set on a dark swatch beside a light one and looking at it. On the pages I had been testing, everything was fine.">8</span>
+			</p>
+
+			<p>
+				<strong>They cannot animate.</strong>
+				A cursor image is rasterised once and anything moving inside it
+				is ignored, so a flipping page had to become two frames the user
+				drives. Progress had the same problem and became a pile of books
+				that are simply not shelved yet.
+			</p>
+
+			<h2 class="h4 mt-5">Safari</h2>
+
+			<p>
+				Safari ignores SVG cursors completely. Every declaration names an
+				ordinary keyword after the file, so Safari falls back to its own
+				arrow, hand and I beam and nothing breaks.
+				<span class="pin" data-n="9"
+					data-title="The fallback is the only line here that is not a design decision"
+					data-note="cursor: url(pencil.svg) 6 28, text is two declarations in a trench coat. The browser takes the last one it understands, so the keyword is what Safari gets, and what anything gets if the file fails to load.|Leave it off and you do not get a default arrow, you get no cursor at all, on a page where every control still works. That one is a requirement rather than a choice.">9</span>
+			</p>
+
+			<p class="small text-muted mt-4">
+				Ten files in <code>images/cursors/</code>, wired up near the
+				bottom of <code>css/prototype.css</code>.
+			</p>
+
+		</div>
+	</div>
+</div>
+
+
+<!-- ---------- shared prototype furniture ---------- -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../index.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../index.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../index.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

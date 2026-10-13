@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Map</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="map">
+
+
+<!-- nav -->
+<nav class="navbar navbar-expand-lg bg-light border-bottom">
+	<div class="container">
+		<a class="navbar-brand" href="../public/home.html">Neighbor Library</a>
+		<div>
+			<a class="btn btn-sm btn-outline-secondary" href="../public/map.html">Map</a>
+			<a class="btn btn-sm btn-outline-secondary" href="../auth/signin.html">Sign in</a>
+			<a class="btn btn-sm btn-primary" href="../auth/signup.html">Register a box</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h1 class="mb-0">Boxes near 55113</h1>
+		<button class="btn btn-sm btn-outline-secondary" type="button">Use my location</button>
+	</div>
+
+	<p class="text-muted small">
+		6 boxes. Tap one to see its list.
+		<span class="pin" data-n="1"
+			data-title="The permission ask waits until here"
+			data-note="The home page took a typed ZIP so nothing was asked for before the person had a reason to say yes. By the time somebody has opened a map, use my location is obviously useful, so this is where the browser prompt belongs.|Same answer either way, and if they deny it the page still works because it already has a ZIP. Nothing is gated on a permission the person can refuse.">1</span>
+	</p>
+
+
+	<div class="row">
+		<div class="col-lg-8">
+			<!-- the map art is images/neighborhood-map.svg. the pins sit on top of
+			     it with .pin-abs, so .screen is position relative -->
+			<div class="screen border">
+				<img src="../images/neighborhood-map.svg" class="img-fluid d-block"
+					alt="Six book boxes on a street map of the Como neighborhood. The same
+					six are listed as text beside this map." />
+
+				<span class="pin pin-abs" style="top:14%;left:34%;" data-n="2"
+					data-title="The marker is the book count"
+					data-note="Every map of this kind uses an identical teardrop for every location, which means the map tells you nothing until you have tapped five of them. Putting the number of books inside the marker makes the map answer a question on sight.|Gray instead of green when the list is stale or nearly empty, so a box with four books and no update since spring does not look like a destination. One glance sorts six boxes into worth the walk and not today.">2</span>
+
+				<span class="pin pin-abs" style="top:14%;left:62%;" data-n="3"
+					data-title="Hand drawn instead of a real map"
+					data-note="This is an svg I drew, not a screenshot. Pasting a Google or Mapbox image into a school project means shipping somebody else's licensed tiles, and a flat screenshot cannot carry the markers that are the actual design idea here.|A real build drops a Mapbox static image in at the same size and keeps the markers and the blue dot exactly as they are. Nothing above this line would change.">3</span>
+
+				<span class="pin pin-abs" style="bottom:4%;left:8%;" data-n="4"
+					data-title="No clustering, no heat map"
+					data-note="Six markers in a couple of square miles does not need clustering, and a heat map of book boxes would be a chart about nothing. The scale of the real data is small, so the map stays a plain map.|Worth writing down because the pull toward adding a layer is strong, and the honest answer is that at this size the list beside it is doing most of the work anyway.">4</span>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<p class="small text-muted">Same six, as a list
+				<span class="pin" data-n="5"
+					data-title="A list next to the map, always"
+					data-note="A map alone is unusable with a keyboard, unusable with a screen reader, and bad on a phone held one handed. The list is not a fallback that appears when something fails, it is just there, and it carries the distances and the staleness that the markers cannot.|On a narrow screen the map shrinks and the list stays whole, and that is the right way round. The course chapters on visual structure are basically this point, so it is the one accessibility decision I wrote up properly.">5</span>
+			</p>
+
+			<ul class="list-unstyled">
+				<li class="mb-3"><a href="library.html">Hoyt &amp; Snelling</a>
+					<small class="d-block text-muted">51 books &middot; 0.6 mi &middot; updated today</small></li>
+				<li class="mb-3"><a href="library.html">Como Ave box</a>
+					<small class="d-block text-muted">34 books &middot; 0.3 mi &middot; 2 days ago</small></li>
+				<li class="mb-3"><a href="library.html">Hamline &amp; Van Buren</a>
+					<small class="d-block text-muted">27 books &middot; 0.9 mi &middot; 5 days ago</small></li>
+				<li class="mb-3"><a href="library.html">Front St bench box</a>
+					<small class="d-block text-muted">19 books &middot; 1.4 mi &middot; last week</small></li>
+				<li class="mb-3"><a href="library.html">Little Bear (Front St)</a>
+					<small class="d-block text-muted">12 books &middot; 1.1 mi &middot; 3 weeks ago</small></li>
+				<li class="mb-3"><a href="empty.html">Griggs St box</a>
+					<small class="d-block text-muted">4 books &middot; 1.6 mi &middot; nearly empty</small></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

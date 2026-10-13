@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - a little free library inventory system</title>
+<meta name="description" content="Design prototype for Neighbor Library, a little free
+	library inventory system. 27 design pages with the reasoning behind each one." />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="css/prototype.css" />
+</head>
+
+<!-- the front door. no data-depth, this one sits at the root -->
+<body data-page="index">
+
+<div class="container my-5">
+
+	<div class="row align-items-center mb-5">
+		<div class="col-md-8">
+			<h1 class="display-5">Neighbor Library</h1>
+			<p class="lead">
+				A little free library inventory system. The map tells you a book
+				box exists. This tells you what's in it.
+			</p>
+			<p class="text-muted">
+				Design prototype, ICS 225. Nothing here works, and that's the
+				assignment.
+			</p>
+		</div>
+		<div class="col-md-4 text-center">
+			<img src="images/book-box.svg" class="img-fluid" style="max-width:180px"
+				alt="Clip art of a little free library box on a post" />
+		</div>
+	</div>
+
+
+	<div class="row g-4">
+
+		<div class="col-md-6">
+			<div class="border p-4 h-100">
+				<h2 class="h4">Click through it</h2>
+				<p>
+					Start on the public home page and walk the whole thing. Every
+					screen has little numbered dots on it. Click one and it tells
+					you why that part is built the way it is.
+				</p>
+				<p class="small text-muted">
+					There's a hidden settings drawer on every page, the small
+					circle in the bottom right or the <kbd>?</kbd> key. It turns
+					the dots off, makes them louder, and jumps to any page in the
+					set.
+				</p>
+				<a class="btn btn-lg btn-primary" href="public/home.html">Start at the home page</a>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="border p-4 h-100">
+				<h2 class="h4">Or just read it</h2>
+				<p>
+					All 102 notes in one page, in reading order, numbered to match
+					the dots. Each entry links out to the screen it's about.
+				</p>
+				<p class="small text-muted">
+					Print it with <kbd>ctrl</kbd>-<kbd>P</kbd> and all the
+					prototype chrome drops out, so it comes out as a plain
+					document.
+				</p>
+				<a class="btn btn-lg btn-outline-primary" href="notes.html">Read the design notes</a>
+			</div>
+		</div>
+
+	</div>
+
+
+	<hr class="my-5" />
+
+	<h2 class="h4">The 27 design pages</h2>
+	<p class="text-muted">
+		Six public screens, five account screens, five emails, five curator
+		screens, three flows, the honor system page, the cursor set, plus
+		these notes. The assignment asks for at least twenty.
+	</p>
+
+	<div class="row">
+
+		<div class="col-md-4">
+			<h3 class="h6 mt-3">Public, no account</h3>
+			<ul class="list-unstyled small">
+				<li><a href="public/home.html">Home and search</a></li>
+				<li><a href="public/search.html">Search results</a></li>
+				<li><a href="public/book.html">One book</a></li>
+				<li><a href="public/library.html">One box and its list</a></li>
+				<li><a href="public/map.html">The map</a></li>
+				<li><a href="public/empty.html">A box with nothing in it</a></li>
+			</ul>
+
+			<h3 class="h6 mt-3">Registering a box</h3>
+			<ul class="list-unstyled small">
+				<li><a href="auth/signup.html">Register a box</a></li>
+				<li><a href="auth/verify.html">Check your email</a></li>
+				<li><a href="auth/signin.html">Sign in</a></li>
+				<li><a href="auth/forgot.html">Forgot password</a></li>
+				<li><a href="auth/reset.html">Set a new password</a></li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<h3 class="h6 mt-3">The emails</h3>
+			<ul class="list-unstyled small">
+				<li><a href="email/verify-email.html">Verify your address</a></li>
+				<li><a href="email/welcome-email.html">Your box is live</a></li>
+				<li><a href="email/checkout-receipt.html">You took a book</a></li>
+				<li><a href="email/due-soon.html">The one nudge</a></li>
+				<li><a href="email/reset-email.html">Password reset</a></li>
+			</ul>
+
+			<h3 class="h6 mt-3">Curator side</h3>
+			<ul class="list-unstyled small">
+				<li><a href="app/dashboard.html">Dashboard</a></li>
+				<li><a href="app/inventory.html">Inventory</a></li>
+				<li><a href="app/add-book.html">Add a book</a></li>
+				<li><a href="app/checkouts.html">Coming and going</a></li>
+				<li><a href="app/box-settings.html">Box settings</a></li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<h3 class="h6 mt-3">Flows and rules</h3>
+			<ul class="list-unstyled small">
+				<li><a href="flows/flow-signup.html">Registering, end to end</a></li>
+				<li><a href="flows/flow-checkout.html">Borrow and return</a></li>
+				<li><a href="flows/states.html">States of a copy</a></li>
+				<li><a href="flows/policy.html">The honor system</a></li>
+			</ul>
+
+			<h3 class="h6 mt-3">The bits underneath</h3>
+				<ul class="list-unstyled small">
+					<li><a href="system/cursors.html">Cursors</a></li>
+				</ul>
+
+			<h3 class="h6 mt-3">Written up</h3>
+			<ul class="list-unstyled small">
+				<li><a href="notes.html">All 102 design notes</a></li>
+			</ul>
+		</div>
+
+	</div>
+
+
+	<hr class="my-5" />
+
+	<div class="row">
+		<div class="col-md-8">
+			<h2 class="h4">Two roles, no staff</h2>
+			<p>
+				A <strong>curator</strong> keeps one box and holds the only kind of
+				account in the system. A <strong>passerby</strong> is everybody
+				else, with no account, no name and no history. There's no staff
+				tier, no moderator, and no organization behind any of it.
+			</p>
+			<p>
+				Everything runs on the honor system. No late fees, no due dates,
+				no borrowing limits, nothing to suspend. That's a decision with
+				consequences all over the design, and it's argued out on
+				<a href="flows/policy.html">how this works</a>.
+			</p>
+		</div>
+	</div>
+
+</div>
+
+
+<!-- the start page gets the drawer too, so you can jump straight in -->
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="notes.html">read the reference</a>
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/prototype.js"></script>
+
+</body>
+</html>

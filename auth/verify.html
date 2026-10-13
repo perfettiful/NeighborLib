@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Check your email</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="verify">
+
+
+<!-- auth screens get almost no nav on purpose, see note 1 on signup -->
+<nav class="navbar bg-light border-bottom">
+	<div class="container">
+		<a class="navbar-brand" href="../public/home.html">Neighbor Library</a>
+		<a class="btn btn-sm btn-outline-secondary" href="../public/home.html">Back to browsing</a>
+	</div>
+</nav>
+
+
+<div class="container my-5">
+	<div class="row justify-content-center">
+		<div class="col-md-6 text-center">
+
+			<h1>Check your email</h1>
+			<p class="lead text-muted">
+				We sent a link to <strong>dana@example.net</strong>
+			</p>
+
+			<p>
+				Click it and your box goes live. The link works for 24 hours.
+				<span class="pin" data-n="1"
+					data-title="A dead end that tells you what to do next"
+					data-note="This screen exists only because the person has to leave the site and come back, and that is the most fragile moment in any signup. So it repeats the address they typed, in case of a typo, says how long the link lasts, and offers the two escape hatches people actually need.|It does not auto refresh or poll waiting for the click. Somebody who verifies on their phone and left this tab open on a laptop is a normal outcome, not a state to manage.">1</span>
+			</p>
+
+			<div class="border p-3 my-4 text-start">
+				<p class="small text-muted mb-2">For the prototype, read the email:</p>
+				<a class="btn btn-sm btn-outline-primary"
+					href="../email/verify-email.html">Open the verification email</a>
+				<span class="pin" data-n="2"
+					data-title="The emails are design pages too"
+					data-note="Five of the pages in this project are emails, and they get designed with the same care as the screens because for a curator who checks in once a month the email is the product. A broken reminder is worse than a broken page, since nobody is going to come looking for it.|A real site would obviously not link to its own outgoing mail. The button is scaffolding so the flow can be walked end to end, and that is the thing a design prototype has to let you do.">2</span>
+			</div>
+
+			<p class="small text-muted">
+				Nothing after a few minutes? Check spam, or
+				<a href="verify.html">send it again</a>.<br />
+				Typed the wrong address? <a href="signup.html">Start over</a>.
+			</p>
+
+		</div>
+	</div>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

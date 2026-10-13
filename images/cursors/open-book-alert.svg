@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Open book with an alert badge, drawn and not used</title>
+
+<!-- the badge version of the pointer, drawn so it could be judged rather
+     than argued about. it lost, and the cursor page says why. kept because
+     a set of cursors is more useful with its rejects visible. -->
+
+<g transform="scale(.72)">
+	<g fill="none" stroke="#ffffff" stroke-width="6"
+		stroke-linejoin="round" stroke-linecap="round">
+		<path d="M5,16 C9,14 13,14 16.2,16.2 L16.2,27 C13,24.8 9,24.8 5,27 Z" />
+		<path d="M29,16 C25.5,14 21.5,14 17.8,16.2 L17.8,27 C21.5,24.8 25.5,24.8 29,27 Z" />
+		<path d="M4,3 C10.5,5 15.5,9.5 17.5,15.8 C11.5,14.5 6.5,10 4,3 Z" />
+	</g>
+	<g fill="#fffdf7" stroke="#2b2b2b" stroke-width="2.8"
+		stroke-linejoin="round" stroke-linecap="round">
+		<path d="M5,16 C9,14 13,14 16.2,16.2 L16.2,27 C13,24.8 9,24.8 5,27 Z" />
+		<path d="M29,16 C25.5,14 21.5,14 17.8,16.2 L17.8,27 C21.5,24.8 25.5,24.8 29,27 Z" />
+	</g>
+	<path d="M4,3 C10.5,5 15.5,9.5 17.5,15.8 C11.5,14.5 6.5,10 4,3 Z"
+		fill="#ffffff" stroke="#2b2b2b" stroke-width="2.8" stroke-linejoin="round" />
+</g>
+
+<circle cx="23" cy="23" r="8.5" fill="#ffffff" />
+<circle cx="23" cy="23" r="6.8" fill="#e8590c" stroke="#2b2b2b" stroke-width="1.4" />
+<path d="M23,18.8 v5" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" />
+<circle cx="23" cy="26.6" r="1.2" fill="#ffffff" />
+</svg>

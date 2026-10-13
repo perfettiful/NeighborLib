@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Inventory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="inventory">
+
+
+<!-- signed in nav. different enough from the public one that you can tell
+     at a glance which side of the product you are on -->
+<nav class="navbar navbar-expand-lg bg-dark border-bottom" data-bs-theme="dark">
+	<div class="container">
+		<a class="navbar-brand" href="../app/dashboard.html">Neighbor Library <small>curator</small></a>
+		<div>
+			<a class="btn btn-sm btn-outline-light" href="../app/inventory.html">Inventory</a>
+			<a class="btn btn-sm btn-outline-light" href="../app/checkouts.html">Checkouts</a>
+			<a class="btn btn-sm btn-outline-light" href="../app/box-settings.html">Box</a>
+			<a class="btn btn-sm btn-outline-light" href="../public/home.html">Exit</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+
+	<div class="d-flex justify-content-between align-items-center">
+		<h1 class="mb-0">What's in the box</h1>
+		<a class="btn btn-primary" href="add-book.html">Add a book</a>
+	</div>
+
+	<div class="row g-2 my-3">
+		<div class="col-sm-5">
+			<label class="visually-hidden" for="find">Find a title</label>
+			<input class="form-control" id="find" placeholder="Find a title" value="" />
+		</div>
+		<div class="col-sm-auto">
+			<label class="visually-hidden" for="show">Show</label>
+			<select class="form-select" id="show">
+				<option>Everything (43)</option>
+				<option>On the shelf (28)</option>
+				<option>Out (6)</option>
+				<option>Gone (9)</option>
+			</select>
+		</div>
+	</div>
+
+	<p class="small text-muted">
+		43 rows. Gone books are hidden unless you ask for them.
+		<span class="pin" data-n="1"
+			data-title="Gone books stay in the list"
+			data-note="The tidy move is to delete a book once it never comes back. I keep it, filtered out of the default view but still there, because a curator who lists a donated copy of a book that walked off in July should be able to see it happened before.|It also makes the gone count on the dashboard mean something. Nine books gone since spring is a fact about the neighborhood, and deleting the rows throws it away for no benefit.">1</span>
+	</p>
+
+	<div class="table-responsive">
+		<table class="table align-middle">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Status</th>
+					<th>Since</th>
+					<th class="text-end">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="status-in">
+					<td>Braiding Sweetgrass</td>
+					<td>Kimmerer</td>
+					<td><span class="badge bg-success">On the shelf</span></td>
+					<td class="small text-muted">added Oct 6</td>
+					<td class="text-end">
+						<button class="btn btn-sm btn-outline-secondary">Mark out</button>
+						<span class="pin" data-n="2"
+							data-title="The curator can do a neighbor's job, but doesn't have to"
+							data-note="Every status a passerby can set, the curator can set too, because somebody will take a book without touching the QR code and the curator will notice the gap on the shelf. Without this the list can only get more wrong.|It is a secondary outline button and not the main thing on the row, because a curator who feels responsible for logging every movement will burn out. The buttons are for the exceptions.">2</span>
+					</td>
+				</tr>
+				<tr class="status-out">
+					<td>Pachinko</td>
+					<td>Lee</td>
+					<td><span class="badge bg-warning text-dark">Out</span></td>
+					<td class="small text-muted">Oct 5, by a neighbor</td>
+					<td class="text-end">
+						<button class="btn btn-sm btn-outline-secondary">Mark back in</button>
+					</td>
+				</tr>
+				<tr class="status-late">
+					<td>Circe</td>
+					<td>Miller</td>
+					<td><span class="badge bg-danger">Out 9 weeks</span></td>
+					<td class="small text-muted">Aug 2</td>
+					<td class="text-end">
+						<button class="btn btn-sm btn-outline-secondary">Mark gone</button>
+						<span class="pin" data-n="3"
+							data-title="Nothing changes on its own"
+							data-note="A library system would flip this to lost automatically after some number of weeks. This one never changes a status by itself, it just shows the elapsed time and lets the curator decide.|The reason is that the clock has no idea what happened. The book might be on a neighbor's porch, or at a cabin, or really gone, and the curator often actually knows. Automating the guess would produce a wrong inventory while looking decisive.">3</span>
+					</td>
+				</tr>
+				<tr class="status-gone">
+					<td>Educated</td>
+					<td>Westover</td>
+					<td><span class="badge bg-secondary">Gone</span></td>
+					<td class="small text-muted">since Jul 14</td>
+					<td class="text-end">
+						<button class="btn btn-sm btn-outline-secondary">It came back</button>
+						<span class="pin" data-n="4"
+							data-title="Every status is reversible"
+							data-note="Books come back months later, and a curator who taps the wrong row should not have to re enter the book. There is no confirm dialog on any of these buttons either, because undo is the right pattern when the worst case is one wrong word in a list of paperbacks.|Confirm dialogs would double the taps on the one chore this product is asking somebody to do for free.">4</span>
+					</td>
+				</tr>
+				<tr class="status-in">
+					<td>Where the Wild Things Are</td>
+					<td>Sendak</td>
+					<td><span class="badge bg-success">On the shelf</span></td>
+					<td class="small text-muted">added Sep 28</td>
+					<td class="text-end">
+						<button class="btn btn-sm btn-outline-secondary">Mark out</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<p class="text-muted small">...38 more rows</p>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

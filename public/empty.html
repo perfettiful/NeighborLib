@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Nothing here yet</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="empty">
+
+
+<!-- nav -->
+<nav class="navbar navbar-expand-lg bg-light border-bottom">
+	<div class="container">
+		<a class="navbar-brand" href="../public/home.html">Neighbor Library</a>
+		<div>
+			<a class="btn btn-sm btn-outline-secondary" href="../public/map.html">Map</a>
+			<a class="btn btn-sm btn-outline-secondary" href="../auth/signin.html">Sign in</a>
+			<a class="btn btn-sm btn-primary" href="../auth/signup.html">Register a box</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+
+	<h1>Griggs St box</h1>
+	<p class="text-muted">
+		1900 block of Griggs &middot; 1.6 mi &middot; updated 3 weeks ago
+	</p>
+
+	<div class="border p-4 my-4 text-center">
+		<h4>This box is just about empty</h4>
+		<p class="text-muted mb-3">
+			4 books listed, and the list is 3 weeks old, so there may be fewer.
+			<span class="pin" data-n="1"
+				data-title="Say the real reason it looks empty"
+				data-note="There is a difference between a box with nothing in it and a box nobody has updated, and the page cannot actually tell which one this is. So it says both out loud instead of picking one.|An empty state that admits what it does not know beats a confident one that is wrong. The alternative, a cheerful no books found, would send somebody 1.6 miles to find a full box with a lazy curator.">1</span>
+		</p>
+
+		<p>
+			<a class="btn btn-primary" href="map.html">Try a different box</a>
+			<a class="btn btn-outline-secondary" href="search.html">Search all boxes</a>
+			<span class="pin" data-n="2"
+				data-title="An empty state has to offer a next click"
+				data-note="The worst version of this page is a sad sentence and nothing to press. Every dead end in the prototype gets at least one way forward, and here the two obvious ones are a different box nearby and a wider search.|Try a different box is the primary because the person is probably standing somewhere and wants a destination, not a search field.">2</span>
+		</p>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<h5>What is listed</h5>
+			<ul class="list-unstyled">
+				<li class="mb-2 ps-3 status-in"><a href="book.html">Two kids board books</a></li>
+				<li class="mb-2 ps-3 status-in"><a href="book.html">A cookbook, water damaged</a></li>
+				<li class="mb-2 ps-3 status-gone"><a href="book.html">Dune</a>
+					<small class="text-muted">gone since July</small></li>
+			</ul>
+		</div>
+
+		<div class="col-md-6">
+			<div class="border p-3">
+				<h5>Got books to spare?</h5>
+				<p class="small">
+					Boxes near a school empty out fast. Drop a few off, no need to
+					tell anybody.
+				</p>
+				<p class="small text-muted mb-0">
+					Nothing to fill in. Just put them in the box.
+					<span class="pin" data-n="3"
+						data-title="Turn the empty page into the donation ask"
+						data-note="An empty box page is the one moment somebody is looking straight at the problem, which makes it the best possible place to ask for a donation. The home page asks for curators, this page asks for books.|And it specifically does not ask them to log a donation in the system. Drive by donating is the normal behavior and adding paperwork to it would reduce the number of books in the box, and that is the opposite of the point.">3</span>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

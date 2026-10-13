@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Grab cursor, a book tipped out of a shelf</title>
+
+<!-- something you could pick up. three spines on a shelf with the middle
+     one tipped forward, which is exactly what you do to a book a second
+     before you pull it out. its pair is book-held. hotspot 16 16.
+     the first version of this was a book seen at an angle and everybody
+     would have read it as a cardboard box, so it became a shelf instead. -->
+
+<!-- white underneath everything, so it survives the dark curator nav -->
+<g fill="none" stroke="#ffffff" stroke-width="5"
+	stroke-linejoin="round" stroke-linecap="round">
+	<path d="M4,27 H28" />
+	<path d="M6.5,9 h5 v17 h-5 z" />
+	<path d="M21,10.5 h5 v15.5 h-5 z" />
+	<g transform="rotate(-15 16 26)"><path d="M13.5,6.5 h5 v19.5 h-5 z" /></g>
+</g>
+
+<g stroke="#2b2b2b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+	<path d="M6.5,9 h5 v17 h-5 z" fill="#fffdf7" />
+	<path d="M21,10.5 h5 v15.5 h-5 z" fill="#fffdf7" />
+	<g transform="rotate(-15 16 26)">
+		<path d="M13.5,6.5 h5 v19.5 h-5 z" fill="#d6336c" />
+	</g>
+	<path d="M4,27 H28" fill="none" stroke-width="2.6" />
+</g>
+</svg>

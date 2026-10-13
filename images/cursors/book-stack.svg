@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Progress cursor, a stack of books</title>
+
+<!-- something is happening and you have to wait for it. a pile of books
+     waiting to be shelved. hotspot 16 16.
+     nothing in this prototype is actually slow, so this one only turns up
+     on the cursor page itself. an svg cursor cannot animate, so a spinner
+     was never an option anyway. -->
+
+<g stroke="#2b2b2b" stroke-width="2" stroke-linejoin="round">
+
+	<g stroke="#ffffff" stroke-width="5">
+		<path d="M5,22 h22 v5 h-22 z" fill="none" />
+		<path d="M7,16.5 h18 v5 h-18 z" fill="none" />
+		<path d="M9,11 h14 v5 h-14 z" fill="none" />
+	</g>
+
+	<path d="M5,22 h22 v5 h-22 z" fill="#d6336c" />
+	<path d="M7,16.5 h18 v5 h-18 z" fill="#f59f00" />
+	<path d="M9,11 h14 v5 h-14 z" fill="#fffdf7" />
+
+</g>
+</svg>

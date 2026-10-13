@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - Box settings</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="box-settings">
+
+
+<!-- signed in nav. different enough from the public one that you can tell
+     at a glance which side of the product you are on -->
+<nav class="navbar navbar-expand-lg bg-dark border-bottom" data-bs-theme="dark">
+	<div class="container">
+		<a class="navbar-brand" href="../app/dashboard.html">Neighbor Library <small>curator</small></a>
+		<div>
+			<a class="btn btn-sm btn-outline-light" href="../app/inventory.html">Inventory</a>
+			<a class="btn btn-sm btn-outline-light" href="../app/checkouts.html">Checkouts</a>
+			<a class="btn btn-sm btn-outline-light" href="../app/box-settings.html">Box</a>
+			<a class="btn btn-sm btn-outline-light" href="../public/home.html">Exit</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+	<div class="row">
+		<div class="col-md-7">
+
+			<h1>Box settings</h1>
+
+			<form>
+				<div class="mb-3">
+					<label class="form-label" for="bn">What people call it</label>
+					<input class="form-control" id="bn" value="Como Ave box" />
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="ba">Street address</label>
+					<input class="form-control" id="ba" value="1418 Como Ave" />
+					<div class="form-text">
+						Used for the map pin. Neighbors see &ldquo;1400 block of Como Ave&rdquo;.
+						<span class="pin" data-n="1"
+							data-title="Show the published version right under the field"
+							data-note="The signup form promised only the block shows publicly, and this is where a curator comes back months later to check whether that was true. Printing the exact public string under the input is cheaper and more convincing than any privacy page.|It also prevents a quiet drift where the implementation starts publishing more than the copy promised, because the promise is sitting right there in the form.">1</span>
+					</div>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="bd">Description</label>
+					<textarea class="form-control" id="bd" rows="3">Mostly novels and kids picture books. Take what you want, leave what you want. There is a bench.</textarea>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="fn">Your first name</label>
+					<input class="form-control" id="fn" value="Dana" />
+					<div class="form-text">
+						Shown on your box's page. No last name, no email, no way for
+						anybody to message you.
+					</div>
+				</div>
+
+				<hr />
+
+				<h5>Return reminders</h5>
+				<div class="mb-3">
+					<label class="form-label" for="wk">Nudge neighbors after</label>
+					<select class="form-select" id="wk">
+						<option>1 week</option>
+						<option selected="selected">2 weeks</option>
+						<option>4 weeks</option>
+						<option>Never, don't send anything</option>
+					</select>
+					<div class="form-text">
+						It's a suggestion either way. Nothing happens when it passes.
+						<span class="pin" data-n="2"
+							data-title="The lending period is a setting, and it has an off switch"
+							data-note="Two weeks is the default because it is what people expect from a library, but some curators will think any reminder at all is too much for a free book. Never is a real option, not buried, and choosing it does not degrade anything else.|There is no setting for a late fee, a limit on how many books somebody can take, or a required email address, because none of those exist. The shape of this screen is the policy, and what it leaves out is the point.">2</span>
+					</div>
+				</div>
+
+				<button class="btn btn-primary" type="button">Save</button>
+			</form>
+
+			<hr class="my-4" />
+
+			<h5>Step away from it</h5>
+			<p class="small">
+				<a href="#">Hide my box from the map for now</a> &middot;
+				<a href="#">Hand the box to somebody else</a> &middot;
+				<a href="#">Delete it and everything in it</a>
+				<span class="pin" data-n="3"
+					data-title="Three exits, because people move"
+					data-note="A curator takes down a box, goes on a long trip, or sells the house, and a product with no way out just leaves a dead pin on the map confusing the neighborhood forever. Stale data is the only real failure this system has, and most of it comes from people who quit without a way to say so.|Handing it over matters most. The box physically stays in the yard when the house changes hands, and transferring the list to whoever lives there now is how a box survives longer than its first curator.">3</span>
+			</p>
+
+		</div>
+
+		<div class="col-md-5">
+			<div class="border p-3">
+				<h5>Print the lid code</h5>
+				<div class="text-center my-3">
+					<div style="width:120px;height:120px;margin:0 auto;border:2px solid #2b2b2b;
+						display:flex;align-items:center;justify-content:center;
+						background:repeating-conic-gradient(#2b2b2b 0% 25%, #fff 0% 50%) 0 0/16px 16px;">
+					</div>
+				</div>
+				<p class="small">
+					Tape it inside the lid. Scanning it opens your box's page with
+					the check out buttons already there.
+					<span class="pin" data-n="4"
+						data-title="The QR code is the whole borrower interface"
+						data-note="A passerby has no app and no account, so the only way they ever reach this system is a square of paper inside a wooden lid. Everything on the public side has to work from a cold scan by a stranger holding a book, in one hand, outdoors.|So the code links to the box page rather than a generic home page. One scan, and they are looking at the list of the box they are standing in front of.">4</span>
+				</p>
+				<button class="btn btn-sm btn-outline-secondary">Print it</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>

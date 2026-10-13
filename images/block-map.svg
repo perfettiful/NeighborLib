@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200"
+	role="img" aria-labelledby="bmTitle bmDesc">
+
+<title id="bmTitle">Block level map of the Como Ave box</title>
+<desc id="bmDesc">A marker on the 1400 block of Como Ave between Snelling and Hamline.
+The marker covers most of the block on purpose, because the exact house number
+is not published.</desc>
+
+<!-- the zoomed in version for a single box page. the marker is a fat circle
+     instead of a point, which is the whole idea. see note 1 on that page. -->
+
+<rect width="320" height="200" fill="#f3f0e9" />
+
+<g fill="#e6e2d8">
+	<rect x="30" y="34" width="44" height="26" /><rect x="86" y="34" width="34" height="26" />
+	<rect x="200" y="34" width="40" height="26" /><rect x="252" y="40" width="30" height="20" />
+	<rect x="40" y="140" width="38" height="28" /><rect x="96" y="144" width="44" height="24" />
+	<rect x="214" y="140" width="52" height="30" />
+</g>
+
+<g stroke="#e2ded5" stroke-width="16" fill="none" stroke-linecap="round">
+	<line x1="0" y1="100" x2="320" y2="100" />
+	<line x1="24" y1="0" x2="24" y2="200" /><line x1="296" y1="0" x2="296" y2="200" />
+</g>
+<g stroke="#fff" stroke-width="12" fill="none" stroke-linecap="round">
+	<line x1="0" y1="100" x2="320" y2="100" />
+	<line x1="24" y1="0" x2="24" y2="200" /><line x1="296" y1="0" x2="296" y2="200" />
+</g>
+
+<text x="120" y="96" font="italic 11px Georgia,serif" fill="#8a8578">Como Ave</text>
+<text x="20" y="194" font="italic 10px Georgia,serif" fill="#8a8578"
+	transform="rotate(-90 20 194)">Snelling</text>
+<text x="292" y="194" font="italic 10px Georgia,serif" fill="#8a8578"
+	transform="rotate(-90 292 194)">Hamline</text>
+
+<!-- a blob over the block, not a pin on a house -->
+<circle cx="170" cy="118" r="42" fill="#d6336c" fill-opacity=".18"
+	stroke="#d6336c" stroke-width="2" stroke-dasharray="5 4" />
+<circle cx="170" cy="118" r="7" fill="#d6336c" stroke="#2b2b2b" stroke-width="2" />
+<text x="170" y="176" font="11px Helvetica,Arial,sans-serif" fill="#555"
+	text-anchor="middle">somewhere on the 1400 block</text>
+
+</svg>

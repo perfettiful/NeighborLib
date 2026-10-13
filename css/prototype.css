@@ -1,0 +1,773 @@
+/* Sketchy ships Neucha for body text. It looks right and it is hard work
+   to read a long report in, so body copy moves to Patrick Hand, which is
+   still clearly handwritten but has a bigger x height and rounder letters.
+   Headings stay on Cabin Sketch, which is where the sketchy look lives.
+   To go back, delete this import and the two rules under it. */
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap");
+
+/* ------------------------------------------------------------------
+   Neighbor Library - design prototype styles
+   ICS 225 final project
+
+   this sits on top of bootswatch sketchy. sketchy does the hand drawn
+   look already so i'm only adding the stuff it doesn't have:
+   the numbered annotation pins, the hidden settings drawer, the fake
+   phone frame, and the email mockups.
+   ------------------------------------------------------------------ */
+
+
+/* bits i reuse all over */
+:root {
+	--bs-body-font-family: "Patrick Hand", "Neucha", "Comic Sans MS", cursive;
+	--bs-body-font-size: 1.05rem;
+	--bs-body-line-height: 1.6;
+	--pin: #d6336c;
+	--pin-ink: #fff;
+	--paper: #fffdf7;
+	--rule: #2b2b2b;
+}
+
+body {
+	background-color: var(--paper);
+}
+
+/* ---------- the prototype notice and its handle ---------- */
+
+/* these used to be two things: a beige strip across the top of every page
+   and a faint button in the corner. they are one object now. the handle
+   sits in the corner on its own and pointing at it unrolls the notice to
+   its left, so the two read as a single strip with a round cap.
+   it overlays the page instead of pushing it down, which also means no
+   layout shift and no band of chrome in every screenshot. */
+/* the strip itself lives on the dock, not on the text, so the handle sits
+   inside the same shape instead of next to it. collapsed, the dock has no
+   background and no border, so all you see is the faint button */
+#protoDock {
+	position: fixed;
+	right: .6rem;
+	bottom: .6rem;
+	z-index: 1040;
+
+	display: flex;
+	align-items: center;
+	max-width: calc(100vw - 1.2rem);
+
+	background: transparent;
+	border: 2px solid transparent;
+	border-radius: 999px;
+	padding-left: 0;
+
+	transition: background-color .2s ease-out, border-color .2s ease-out,
+		padding-left .2s ease-out;
+}
+
+/* focus-within matters as much as hover. the handle is the only focusable
+   thing in here, so without it the notice is unreachable by keyboard */
+#protoDock:hover,
+#protoDock:focus-within {
+	background: #fff3cd;
+	border-color: var(--rule);
+	padding-left: 1.2rem;
+}
+
+/* the text. a plain block on purpose. as a flex container the whitespace
+   between the words and the link was being dropped, which ran the sentence
+   together as works.read the reference */
+.proto-bar {
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: .85rem;
+	line-height: 1.4;
+
+	max-width: 0;
+	margin-right: 0;
+	opacity: 0;
+
+	transition: max-width .2s ease-out, opacity .15s ease-out,
+		margin-right .2s ease-out;
+}
+
+.proto-bar a {
+	font-weight: bold;
+}
+
+#protoDock:hover .proto-bar,
+#protoDock:focus-within .proto-bar {
+	max-width: 48rem;
+	margin-right: .7rem;
+	opacity: 1;
+}
+
+/* the handle. faint on its own, then the cap on the end of the strip */
+#protoHandle {
+	flex: none;
+	width: 2.4rem;
+	height: 2.4rem;
+	border-radius: 50%;
+	padding: 0;
+	opacity: .35;
+	transition: opacity .15s ease-out;
+}
+
+#protoDock:hover #protoHandle,
+#protoDock:focus-within #protoHandle {
+	opacity: 1;
+}
+
+/* a touch screen has no hover, so the notice would never appear at all.
+   there it just stays open, because saying this is not a real site is the
+   one job the strip has */
+@media (hover: none) {
+	#protoDock {
+		background: #fff3cd;
+		border-color: var(--rule);
+		padding-left: 1.2rem;
+	}
+
+	.proto-bar {
+		max-width: 48rem;
+		margin-right: .7rem;
+		opacity: 1;
+	}
+
+	#protoHandle {
+		opacity: 1;
+	}
+}
+
+/* a narrow window cannot fit the sentence on one line, so let it wrap */
+@media (max-width: 575px) {
+	.proto-bar {
+		white-space: normal;
+		font-size: .78rem;
+	}
+
+	#protoDock:hover .proto-bar,
+	#protoDock:focus-within .proto-bar {
+		max-width: calc(100vw - 5.5rem);
+	}
+}
+
+
+/* ---------- the annotation dots ---------- */
+
+/* these get written inline in the html, right next to whatever they're
+   about, because that's the only sane way to author them. but inline means
+   they sit in the text and shove it sideways, and they're supposed to
+   float over the page instead of being part of it.
+   so the js swaps each one for the zero size marker below and moves the
+   dot itself into #pinLayer. nothing in the content shifts. */
+.pin-anchor {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	vertical-align: middle;
+}
+
+/* the sheet everything gets moved onto. covers the whole page and lets
+   clicks straight through, except on a sticker */
+#pinLayer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 0;
+	z-index: 1020;
+	pointer-events: none;
+}
+
+
+/* a plain numbered dot that floats above the text. the js has already
+   moved it out of the content, so all this has to do is look like it is
+   sitting on top rather than printed in */
+.pin {
+	position: absolute;
+	pointer-events: auto;
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.7rem;
+	height: 1.7rem;
+	border-radius: 50%;
+	padding: 0;
+	line-height: 1;
+
+	background: var(--pin);
+	color: var(--pin-ink);
+	font-size: .78rem;
+	font-weight: bold;
+
+	border: 2px solid #fff;
+	user-select: none;
+
+	/* one shadow, straight down. enough to lift it off the page and no more */
+	box-shadow: 0 2px 4px rgba(43, 43, 43, .35);
+
+	transition: box-shadow .12s ease-out, transform .12s ease-out;
+}
+
+/* floats a little higher when you point at it */
+.pin:hover,
+.pin:focus-visible {
+	box-shadow: 0 5px 9px rgba(43, 43, 43, .38);
+	transform: translateY(-2px);
+}
+
+/* and settles back down when you press it */
+.pin:active {
+	box-shadow: 0 1px 2px rgba(43, 43, 43, .35);
+	transform: translateY(1px);
+}
+
+.pin:focus-visible {
+	outline: 2px solid var(--rule);
+	outline-offset: 2px;
+}
+
+/* the ones placed over the map. the marker left behind keeps these
+   coordinates, and the js measures it */
+.pin-abs {
+	position: absolute;
+	z-index: 5;
+}
+
+/* so those markers have something to be a percentage of */
+.screen {
+	position: relative;
+}
+
+/* the map has to fill this box exactly. bootstrap's img-fluid stops at the
+   image's own 800px, so on a wide screen the box was wider than the picture
+   and the stickers, placed as a percentage of the box, drifted off the
+   streets they point at */
+.screen img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* settings can turn the whole lot off */
+body.pins-off .pin {
+	display: none;
+}
+
+/* and this makes them impossible to miss while presenting. a ring, not
+   an animation, because something pulsing on every page got annoying fast */
+body.pins-loud .pin {
+	box-shadow:
+		0 2px 4px rgba(43, 43, 43, .35),
+		0 0 0 5px rgba(214, 51, 108, .3);
+}
+
+
+/* ---------- fake phone ---------- */
+
+.phone {
+	max-width: 390px;
+	margin: 0 auto;
+	border: 3px solid var(--rule);
+	border-radius: 28px;
+	padding: 1rem .75rem;
+	background: #fff;
+}
+
+.phone .notch {
+	width: 40%;
+	height: .5rem;
+	background: var(--rule);
+	border-radius: 999px;
+	margin: 0 auto .75rem auto;
+}
+
+
+/* ---------- email mockups ---------- */
+
+/* emails are their own pages so i wrap them in something that reads as
+   an inbox instead of a web page */
+.mailframe {
+	max-width: 640px;
+	margin: 0 auto;
+	border: 2px solid var(--rule);
+	background: #fff;
+}
+
+.mailhead {
+	border-bottom: 2px dashed var(--rule);
+	padding: .75rem 1rem;
+	font-size: .9rem;
+	background: #f6f6f6;
+}
+
+.mailhead dt {
+	float: left;
+	width: 4.5rem;
+	color: #555;
+	font-weight: normal;
+}
+
+.mailbody {
+	padding: 1.25rem;
+}
+
+/* emails don't get the site nav so they need a way back */
+.mailback {
+	max-width: 640px;
+	margin: 1rem auto 0 auto;
+	font-size: .85rem;
+}
+
+
+/* ---------- book list bits ---------- */
+
+.cover {
+	width: 46px;
+	height: 66px;
+	border: 2px solid var(--rule);
+	background: #efe7d7;
+	display: inline-block;
+	text-align: center;
+	font-size: .6rem;
+	padding-top: 1.4rem;
+	line-height: 1;
+}
+
+.status-in     { border-left: 6px solid #2f9e44; }
+.status-out    { border-left: 6px solid #e8590c; }
+.status-late   { border-left: 6px solid #c92a2a; }
+.status-gone   { border-left: 6px solid #868e96; }
+
+
+/* ---------- the reference doc (index.html) ---------- */
+
+.ref h2 {
+	border-bottom: 2px solid var(--rule);
+	margin-top: 2.5rem;
+	padding-bottom: .25rem;
+}
+
+.ref .num {
+	display: inline-block;
+	min-width: 2.4rem;
+	font-weight: bold;
+	color: var(--pin);
+}
+
+/* the essay style entries. hanging indent so the numbers line up like a
+   works cited page, which is the look i was going for */
+.ref .entry {
+	padding-left: 2.6rem;
+	text-indent: -2.6rem;
+	margin-bottom: 1.1rem;
+}
+
+/* only the first line, the one carrying the number, is supposed to hang.
+   text-indent inherits, so every paragraph inside the entry was hanging
+   too and the body text zig zagged in and out */
+.ref .entry .d-block {
+	text-indent: 0;
+	margin-top: .35rem;
+}
+
+
+/* ---------- cursors ---------- */
+
+/* a set of eight, drawn in images/cursors. the whole thing is one idea:
+   a reading desk. a bookmark for pointing, an open book for opening
+   things, a pencil for writing.
+
+   two rules i had to follow while drawing them.
+   svg cursors are capped at 32 by 32, and anything bigger gets ignored
+   rather than scaled, so every one is drawn to that size.
+   and they cannot animate, which is why progress is a pile of books
+   rather than a spinner.
+
+   every declaration names an ordinary css keyword after the file. safari
+   ignores svg cursors completely, and a fallback is the difference
+   between a plain arrow and no cursor at all. */
+
+:root {
+	--cur-default:  url("../images/cursors/bookmark.svg") 3 2;
+	--cur-pointer:  url("../images/cursors/open-book.svg") 4 3;
+	--cur-press:    url("../images/cursors/open-book-press.svg") 4 3;
+	--cur-text:     url("../images/cursors/pencil.svg") 6 28;
+	--cur-help:     url("../images/cursors/bookmark-help.svg") 3 2;
+	--cur-no:       url("../images/cursors/book-no.svg") 16 16;
+	--cur-progress: url("../images/cursors/book-stack.svg") 16 16;
+	--cur-grab:     url("../images/cursors/book-loose.svg") 16 16;
+	--cur-grabbing: url("../images/cursors/book-held.svg") 16 16;
+}
+
+body {
+	cursor: var(--cur-default), default;
+}
+
+/* bootstrap's reboot already claims these with button:not(:disabled),
+   which outranks a plain button selector, so the same shape is used here
+   or the buttons quietly keep the system hand */
+a,
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled),
+label,
+select,
+summary,
+.btn,
+[role="button"],
+input[type="checkbox"] {
+	cursor: var(--cur-pointer), pointer;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input:not([type]),
+textarea {
+	cursor: var(--cur-text), text;
+}
+
+/* the numbered dots explain something rather than take you anywhere, so
+   they get help and not pointer */
+.pin {
+	cursor: var(--cur-help), help;
+}
+
+/* held down. same hotspot as the pointer, and between the two frames the
+   page turn actually happens, driven by the mouse rather than a timeline
+   because svg cursors cannot animate.
+   :active is specificity 0,1,1, which is exactly what bootstrap's
+   button:not(:disabled) scores, so source order settles it and this has
+   to stay below that rule */
+a:active,
+button:not(:disabled):active,
+[type="submit"]:not(:disabled):active,
+[type="button"]:not(:disabled):active,
+label:active,
+select:active,
+summary:active,
+.btn:active,
+[role="button"]:active {
+	cursor: var(--cur-press), pointer;
+}
+
+/* links that deliberately go nowhere in the prototype. better to say so
+   with the cursor than to let somebody click and wonder what broke.
+   the :active half has to be here too, or pressing a dead link would hand
+   it back the pointer that the rule above sets */
+a[href="#"],
+a[href="#"]:active {
+	cursor: var(--cur-no), not-allowed;
+}
+
+/* the distance slider on the search page. it is the one thing in the
+   whole prototype you actually drag, so grab and grabbing have somewhere
+   honest to live after all.
+
+   two things to know here. bootstrap puts cursor: pointer on the slider
+   track through a pseudo element, and a rule on input[type="range"]
+   cannot reach a pseudo element, so the plain system hand was showing
+   through no matter what the element rule said.
+   and each vendor prefixed pseudo element needs its own rule. group them
+   in one selector list and the browser throws the whole rule away because
+   it does not recognise the other vendor's half. */
+/* the control's own box. chrome's user agent stylesheet puts
+   cursor: default on a range input, so without this the few pixels of the
+   element that are not track or thumb show a plain system arrow */
+input[type="range"],
+.form-range {
+	cursor: var(--cur-grab), grab;
+}
+
+input[type="range"]:active,
+.form-range:active {
+	cursor: var(--cur-grabbing), grabbing;
+}
+
+.form-range::-webkit-slider-runnable-track { cursor: var(--cur-grab), grab; }
+.form-range::-moz-range-track              { cursor: var(--cur-grab), grab; }
+.form-range::-webkit-slider-thumb          { cursor: var(--cur-grab), grab; }
+.form-range::-moz-range-thumb              { cursor: var(--cur-grab), grab; }
+
+.form-range:active::-webkit-slider-runnable-track { cursor: var(--cur-grabbing), grabbing; }
+.form-range:active::-moz-range-track              { cursor: var(--cur-grabbing), grabbing; }
+.form-range:active::-webkit-slider-thumb          { cursor: var(--cur-grabbing), grabbing; }
+.form-range:active::-moz-range-thumb              { cursor: var(--cur-grabbing), grabbing; }
+
+/* progress is still the only one with nowhere to go. nothing here loads */
+.cur-progress { cursor: var(--cur-progress), progress; }
+.cur-grab     { cursor: var(--cur-grab), grab; }
+.cur-grabbing { cursor: var(--cur-grabbing), grabbing; }
+
+/* swatches on the cursor page, so you can try one without hunting for a
+   real control that uses it */
+.cur-default-demo  { cursor: var(--cur-default), default; }
+.cur-pointer-demo  { cursor: var(--cur-pointer), pointer; }
+.cur-text-demo     { cursor: var(--cur-text), text; }
+.cur-help-demo     { cursor: var(--cur-help), help; }
+.cur-no-demo       { cursor: var(--cur-no), not-allowed; }
+
+.swatch {
+	border: 2px solid var(--rule);
+	background: #fff;
+	padding: 1rem;
+	height: 100%;
+}
+
+/* each one is shown twice. big enough to see what it is, and at the 32
+   pixels it will actually be used at, because those are two different
+   questions and only the second one matters */
+.swatch .big {
+	width: 76px;
+	height: 76px;
+}
+
+.swatch .real {
+	width: 32px;
+	height: 32px;
+	vertical-align: middle;
+}
+
+/* the real size pair sits on paper and on the dark nav colour, since a
+   cursor has to survive both */
+.swatch .onpaper,
+.swatch .ondark {
+	display: inline-block;
+	padding: 3px;
+	border: 1px solid #ccc;
+}
+
+.swatch .ondark {
+	background: #2b2b2b;
+}
+
+.swatch .try {
+	background: repeating-linear-gradient(45deg,
+		#f6f3ea 0 8px, #fffdf7 8px 16px);
+	border: 1px dashed #999;
+	padding: 1.1rem .6rem;
+	text-align: center;
+	font-size: .8rem;
+	color: #666;
+	margin-top: .6rem;
+}
+
+
+/* ---------- the reference page: sticky bar and side index ---------- */
+
+/* a thin bar that stays put while you read 101 notes */
+.notes-top {
+	position: sticky;
+	top: 0;
+	z-index: 1030;
+	display: flex;
+	gap: .9rem;
+	align-items: center;
+	background: var(--paper);
+	border-bottom: 2px solid var(--rule);
+	padding: .5rem .9rem;
+	font-size: .9rem;
+}
+
+.notes-top button {
+	margin-left: auto;
+}
+
+/* the index down the side. sticks once you scroll past it and scrolls on
+   its own if the list is taller than the window */
+.notes-nav {
+	position: sticky;
+	top: 3.4rem;
+	max-height: calc(100vh - 4.5rem);
+	overflow-y: auto;
+	border-right: 2px solid var(--rule);
+	padding-right: .5rem;
+
+	/* bootstrap's .nav sets flex-wrap: wrap. with flex-column and a capped
+	   height that makes the list wrap into a second column, which landed
+	   on top of the text. it has to scroll instead */
+	flex-wrap: nowrap;
+}
+
+.notes-nav a {
+	display: block;
+	padding: .18rem .5rem;
+	font-size: .9rem;
+	color: #444;
+	text-decoration: none;
+	border-left: 4px solid transparent;
+	line-height: 1.3;
+}
+
+.notes-nav a:hover {
+	background: #f3eee1;
+	color: #000;
+}
+
+/* bootstrap scrollspy puts .active on whichever one you are looking at */
+.notes-nav a.active {
+	border-left-color: var(--pin);
+	background: #f3eee1;
+	color: #000;
+	font-weight: bold;
+}
+
+.notes-nav .sect {
+	margin-top: .7rem;
+	font-size: .78rem;
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	color: #777;
+	font-weight: bold;
+}
+
+.notes-nav .sub {
+	padding-left: 1.1rem;
+}
+
+/* the note count next to each page name */
+.notes-nav .n {
+	float: right;
+	color: #999;
+	font-size: .8rem;
+}
+
+/* on a narrow screen it stops sticking and just sits above the text */
+@media (max-width: 991px) {
+	.notes-nav {
+		position: static;
+		max-height: none;
+		border-right: 0;
+		border-bottom: 2px solid var(--rule);
+		margin-bottom: 1.5rem;
+		padding-bottom: .5rem;
+	}
+}
+
+
+/* print. the reference page is supposed to be printable as a pdf so
+   everything that isn't the text itself goes away */
+@media print {
+	.proto-bar,
+	#protoDock,
+	#pinLayer,
+	.notes-top,
+	.notes-nav,
+	.offcanvas,
+	.no-print,
+	nav {
+		display: none !important;
+	}
+
+	body {
+		background: #fff;
+		font-size: 11pt;
+	}
+
+	.ref h2 {
+		page-break-after: avoid;
+	}
+
+	.ref .entry {
+		page-break-inside: avoid;
+	}
+
+	/* show where the links actually go since you can't click paper */
+	.ref a[href]:after {
+		content: " (" attr(href) ")";
+		font-size: 9pt;
+		color: #555;
+	}
+}
+
+
+/* ---------- flow charts and the state diagram ---------- */
+
+/* boxes and arrows done with plain divs. i tried drawing these as svg and
+   it was unreadable on a phone, this reflows */
+.flow {
+	max-width: 760px;
+	margin: 0 auto;
+}
+
+.flow .step {
+	border: 2px solid var(--rule);
+	background: #fff;
+	padding: .7rem 1rem;
+	position: relative;
+}
+
+/* who does this step. curator steps and passerby steps need to be tellable
+   apart at a glance since the whole point is that they're different people */
+.flow .by-pass   { border-left: 10px solid #1c7ed6; }
+.flow .by-cur    { border-left: 10px solid #2f9e44; }
+.flow .by-system { border-left: 10px solid #868e96; background: #f6f6f6; }
+
+.flow .who {
+	font-size: .7rem;
+	text-transform: uppercase;
+	letter-spacing: .06em;
+	color: #666;
+	display: block;
+}
+
+.flow .arrow {
+	text-align: center;
+	font-size: 1.5rem;
+	line-height: 1;
+	margin: .35rem 0;
+	color: var(--rule);
+}
+
+/* the branches that aren't the happy path */
+.flow .alt {
+	border: 2px dashed #999;
+	background: #fcfbf7;
+	padding: .6rem .9rem;
+	margin-left: 2rem;
+	font-size: .9rem;
+}
+
+.flow .alt .lbl {
+	font-weight: bold;
+	font-size: .75rem;
+	text-transform: uppercase;
+	color: #8a6d00;
+}
+
+/* legend */
+.legend span {
+	display: inline-block;
+	margin-right: 1rem;
+	font-size: .85rem;
+}
+
+.legend i {
+	display: inline-block;
+	width: .9rem;
+	height: .9rem;
+	border: 2px solid var(--rule);
+	vertical-align: -2px;
+	margin-right: .25rem;
+}
+
+/* the state diagram grid */
+.states .st {
+	border: 2px solid var(--rule);
+	padding: .6rem .8rem;
+	background: #fff;
+	text-align: center;
+}
+
+.states .st small {
+	display: block;
+	color: #666;
+}
+
+.states .to {
+	font-size: .85rem;
+	color: #444;
+	padding: .3rem 0 .3rem 1.2rem;
+}

@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - design notes</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="css/prototype.css" />
+</head>
+
+<!-- no data-depth here, this one is at the root. prototype.js checks for it -->
+<body data-page="notes" data-bs-spy="scroll" data-bs-target="#notesNav"
+	data-bs-root-margin="0px 0px -75%" tabindex="0">
+
+
+<!-- a thin bar that sticks to the top while you read, so you always know
+     what you are in and can get out -->
+<div class="notes-top no-print">
+	<strong>Neighbor Library design notes</strong>
+	<span class="text-muted">102 notes &middot; 27 pages</span>
+	<button class="btn btn-sm btn-outline-secondary" id="printNotes" type="button">
+		Save as PDF</button>
+</div>
+
+<div class="container-fluid my-4 ref">
+<div class="row">
+
+<!-- the index. sticky on a wide screen, an ordinary list on a narrow one,
+     and gone entirely when you print, because the printed version has its
+     own contents page instead -->
+<div class="col-lg-3 no-print">
+	<nav id="notesNav" class="notes-nav nav flex-column">
+	<a class="nav-link sect" href="#sec-the-public-side">The public side</a>
+	<a class="nav-link sub" href="#home">Home and search <span class="n">7</span></a>
+	<a class="nav-link sub" href="#search">Search results <span class="n">5</span></a>
+	<a class="nav-link sub" href="#book">One book <span class="n">4</span></a>
+	<a class="nav-link sub" href="#library">One box and its list <span class="n">4</span></a>
+	<a class="nav-link sub" href="#map">The map <span class="n">5</span></a>
+	<a class="nav-link sub" href="#empty">A box with nothing in it <span class="n">3</span></a>
+	<a class="nav-link sect" href="#sec-registering-a-box">Registering a box</a>
+	<a class="nav-link sub" href="#signup">Register a box <span class="n">5</span></a>
+	<a class="nav-link sub" href="#verify">Check your email <span class="n">2</span></a>
+	<a class="nav-link sub" href="#signin">Sign in <span class="n">2</span></a>
+	<a class="nav-link sub" href="#forgot">Forgot password <span class="n">2</span></a>
+	<a class="nav-link sub" href="#reset">Set a new password <span class="n">3</span></a>
+	<a class="nav-link sect" href="#sec-the-emails">The emails</a>
+	<a class="nav-link sub" href="#verify-email">Verify your address <span class="n">3</span></a>
+	<a class="nav-link sub" href="#welcome-email">Your box is live <span class="n">3</span></a>
+	<a class="nav-link sub" href="#checkout-receipt">You took a book <span class="n">3</span></a>
+	<a class="nav-link sub" href="#due-soon">The one nudge <span class="n">3</span></a>
+	<a class="nav-link sub" href="#reset-email">Password reset <span class="n">2</span></a>
+	<a class="nav-link sect" href="#sec-the-curator-side">The curator side</a>
+	<a class="nav-link sub" href="#dashboard">Dashboard <span class="n">5</span></a>
+	<a class="nav-link sub" href="#inventory">Inventory <span class="n">4</span></a>
+	<a class="nav-link sub" href="#add-book">Add a book <span class="n">5</span></a>
+	<a class="nav-link sub" href="#checkouts">Coming and going <span class="n">3</span></a>
+	<a class="nav-link sub" href="#box-settings">Box settings <span class="n">4</span></a>
+	<a class="nav-link sect" href="#sec-flows-states-and-the-honor-system">Flows, states and the honor system</a>
+	<a class="nav-link sub" href="#flow-signup">Registering, end to end <span class="n">3</span></a>
+	<a class="nav-link sub" href="#flow-checkout">Borrow and return <span class="n">4</span></a>
+	<a class="nav-link sub" href="#states">States of a copy <span class="n">4</span></a>
+	<a class="nav-link sub" href="#policy">The honor system <span class="n">5</span></a>
+	<a class="nav-link sect" href="#sec-the-bits-underneath">The bits underneath</a>
+	<a class="nav-link sub" href="#cursors">Cursors <span class="n">9</span></a>
+	</nav>
+</div>
+
+<div class="col-lg-9" id="notesBody">
+
+	<header class="mb-5">
+		<h1>Neighbor Library</h1>
+		<p class="lead">
+			A little free library inventory system. Design notes for every
+			screen, email and flow in the prototype.
+		</p>
+		<p class="text-muted">
+			ICS 225 final project &middot; 102 notes across 27 design pages
+		</p>
+	</header>
+
+
+	<h2>What it is</h2>
+
+	<p>
+		Little Free Libraries are the book boxes people put up in their front
+		yards. The official map tells you a box exists at an address. It does
+		not tell you what is inside, so finding a specific book still means
+		walking over and looking in the box.
+	</p>
+
+	<p>
+		Neighbor Library is that one missing column. A curator keeps their own box's list
+		current, neighbors mark books in and out themselves so the list stays
+		current without the curator checking it, and everything is searchable
+		so somebody can tell a title is there before leaving the house.
+	</p>
+
+	<h3 class="h5">Two roles, and that is all</h3>
+
+	<p>
+		A <strong>curator</strong> runs one box and holds the only kind of
+		account in the system. A <strong>passerby</strong> is everybody else,
+		with no account, no name and no history. There is no staff tier, no
+		moderator, and no organization behind any of it. Everything runs on
+		the honor system, which is written up at
+		<a href="flows/policy.html">how this works</a>.
+	</p>
+
+	<h3 class="h5">How to read this</h3>
+
+	<p>
+		Every screen in the prototype has little numbered dots on it. Clicking
+		one explains the decision behind that piece of the design. This page
+		is all of those notes in reading order, numbered the same way, so it
+		can be printed on its own or read next to the screens.
+	</p>
+
+	<p class="no-print">
+		The hidden settings drawer on any page, the small circle in the bottom
+		right or the <kbd>?</kbd> key, turns the dots off, makes them louder,
+		or jumps straight to any page in the set.
+	</p>
+
+
+	<div class="d-none d-print-block">
+	<h2>Contents</h2>
+	<ol class="small">
+		<li><a href="#home">Home and search</a> <span class="text-muted">7 notes</span></li>
+		<li><a href="#search">Search results</a> <span class="text-muted">5 notes</span></li>
+		<li><a href="#book">One book</a> <span class="text-muted">4 notes</span></li>
+		<li><a href="#library">One box and its list</a> <span class="text-muted">4 notes</span></li>
+		<li><a href="#map">The map</a> <span class="text-muted">5 notes</span></li>
+		<li><a href="#empty">A box with nothing in it</a> <span class="text-muted">3 notes</span></li>
+		<li><a href="#signup">Register a box</a> <span class="text-muted">5 notes</span></li>
+		<li><a href="#verify">Check your email</a> <span class="text-muted">2 notes</span></li>
+		<li><a href="#signin">Sign in</a> <span class="text-muted">2 notes</span></li>
+		<li><a href="#forgot">Forgot password</a> <span class="text-muted">2 notes</span></li>
+		<li><a href="#reset">Set a new password</a> <span class="text-muted">3 notes</span></li>
+		<li><a href="#verify-email">Verify your address</a> <span class="text-muted">3 notes</span></li>
+		<li><a href="#welcome-email">Your box is live</a> <span class="text-muted">3 notes</span></li>
+		<li><a href="#checkout-receipt">You took a book</a> <span class="text-muted">3 notes</span></li>
+		<li><a href="#due-soon">The one nudge</a> <span class="text-muted">3 notes</span></li>
+		<li><a href="#reset-email">Password reset</a> <span class="text-muted">2 notes</span></li>
+		<li><a href="#dashboard">Dashboard</a> <span class="text-muted">5 notes</span></li>
+		<li><a href="#inventory">Inventory</a> <span class="text-muted">4 notes</span></li>
+		<li><a href="#add-book">Add a book</a> <span class="text-muted">5 notes</span></li>
+		<li><a href="#checkouts">Coming and going</a> <span class="text-muted">3 notes</span></li>
+		<li><a href="#box-settings">Box settings</a> <span class="text-muted">4 notes</span></li>
+		<li><a href="#flow-signup">Registering, end to end</a> <span class="text-muted">3 notes</span></li>
+		<li><a href="#flow-checkout">Borrow and return</a> <span class="text-muted">4 notes</span></li>
+		<li><a href="#states">States of a copy</a> <span class="text-muted">4 notes</span></li>
+		<li><a href="#policy">The honor system</a> <span class="text-muted">5 notes</span></li>
+		<li><a href="#cursors">Cursors</a> <span class="text-muted">9 notes</span></li>
+	</ol>
+	</div>
+
+	
+<h2 id="sec-the-public-side">The public side</h2>
+	<p class="text-muted">Anybody can see these. No account involved anywhere in this group.</p>
+	
+<h3 class="h5 mt-4" id="home">Home and search
+		<a class="small no-print" href="public/home.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">public/home.html</p>
+	
+<div class="entry" id="home-1">
+		<span class="num">1.</span> <strong>Two roles, and only one of them signs in</strong>
+		<span class="d-block">There are exactly two kinds of person here. A passerby walks up to a box and takes a book, and never makes an account, ever. A curator keeps one box and is the only role that signs in. There is no staff, no moderator, and no central library to appeal to, because there is no organization behind any of this.</span>
+		<span class="d-block">So browsing is the default and needs no account at all. Register a box is the only thing pushed as a primary button, because that is the action that actually grows the system.</span>
+	</div>
+	
+<div class="entry" id="home-2">
+		<span class="num">2.</span> <strong>The pitch is the gap</strong>
+		<span class="d-block">The official Little Free Library map already answers where are the boxes. It does not answer what is in them, so people still walk over and look.</span>
+		<span class="d-block">The whole product is that one missing column, so the headline says it in the fewest words I could get it down to. If somebody reads nothing else they should still understand what this does differently.</span>
+	</div>
+	
+<div class="entry" id="home-3">
+		<span class="num">3.</span> <strong>Location is a text field, not a permission prompt</strong>
+		<span class="d-block">Asking for the browser location permission on first load is the fastest way to get denied, and once denied it is painful to recover.</span>
+		<span class="d-block">A ZIP field gets to the same answer with no permission, works when the person is searching from their desk for a box near their kid's school, and can be prefilled later from the account if they make one. The map page offers use my location as an option after the person has a reason to say yes.</span>
+	</div>
+	
+<div class="entry" id="home-4">
+		<span class="num">4.</span> <strong>Something to look at on an empty search</strong>
+		<span class="d-block">A bare search box is a dead end if you do not already know what you want. Most people browsing a little free library are not looking for a specific title, they are seeing what is around.</span>
+		<span class="d-block">Recent additions give the page something to do on arrival and show that the inventory is alive, and that is the thing a visitor cannot otherwise tell.</span>
+	</div>
+	
+<div class="entry" id="home-5">
+		<span class="num">5.</span> <strong>Show checked out instead of hiding it</strong>
+		<span class="d-block">The easy call is to hide anything that is not on the shelf right now. I think that is wrong. Knowing a title exists two blocks away and comes back next week is useful, and hiding it makes the catalog look thinner than it is.</span>
+		<span class="d-block">So it stays listed, visibly unavailable, with a rough return date. The risk is somebody walking over anyway without reading, so the status is carried by color and text and position rather than color alone.</span>
+	</div>
+	
+<div class="entry" id="home-6">
+		<span class="num">6.</span> <strong>Last updated is a trust signal</strong>
+		<span class="d-block">An inventory is only worth anything if it is current, and the system has no way to force a curator to keep it current. So instead of pretending every list is accurate, it shows how stale each one is and lets the reader decide.</span>
+		<span class="d-block">Three weeks old does not mean wrong, it means walk over expecting surprises. This also pressures curators to update, because a stale date is visible to their neighbors.</span>
+	</div>
+	
+<div class="entry" id="home-7">
+		<span class="num">7.</span> <strong>The curator pitch is about less work, not more</strong>
+		<span class="d-block">The obvious objection to this whole idea is that it is one more thing to maintain. Nobody puts up a book box because they wanted a data entry job.</span>
+		<span class="d-block">So the pitch leads with neighbors check things in and out themselves. The system is framed as something that keeps the list current on its own, with the curator only stepping in to add new donations.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="search">Search results
+		<a class="small no-print" href="public/search.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">public/search.html</p>
+	
+<div class="entry" id="search-1">
+		<span class="num">1.</span> <strong>Only four filters, and distance is one of them</strong>
+		<span class="d-block">A catalog page usually grows filters forever. Genre, language, format, publication year, condition. I cut it to distance, availability, box, and genre because the collection is tiny. Filtering 34 books by publication decade is pointless.</span>
+		<span class="d-block">Distance comes first because it is the only filter that changes whether somebody will actually go get the book. A perfect match four miles away is a worse result than a decent match on the next block.</span>
+	</div>
+	
+<div class="entry" id="search-2">
+		<span class="num">2.</span> <strong>Checked out is on by default</strong>
+		<span class="d-block">This checkbox is on when you arrive, which is a real decision and not laziness. If it defaulted off, the catalog would look emptier than it is and nobody would learn that the box two streets over has the thing they want, just not today.</span>
+		<span class="d-block">The cost is that some results are not actionable right now. I decided a slightly noisier list beats a list that quietly hides a third of the collection.</span>
+	</div>
+	
+<div class="entry" id="search-3">
+		<span class="num">3.</span> <strong>Say how wide the net was</strong>
+		<span class="d-block">Three results reads as a broken search unless you also say three out of what. Showing in 6 boxes within 0.8 mi turns a thin result into an honest one, and it tells the reader the fix is to widen the distance rather than retype the title.</span>
+		<span class="d-block">It also sets expectations before anybody walks anywhere. This is a handful of book boxes, not a county library system.</span>
+	</div>
+	
+<div class="entry" id="search-4">
+		<span class="num">4.</span> <strong>Due back is a guess and should sound like one</strong>
+		<span class="d-block">Nothing in this system can make a neighbor bring a book back on a particular day. There is no card, no fine, no account to freeze. The date is the end of a two week window the curator picked, nothing more.</span>
+		<span class="d-block">So the wording stays soft. Due back Oct 19, not Available Oct 19. If the copy promised availability the product would be lying roughly as often as people are late, which with a book box is often.</span>
+	</div>
+	
+<div class="entry" id="search-5">
+		<span class="num">5.</span> <strong>Staleness rides along with the result</strong>
+		<span class="d-block">The box page shows when its inventory was last touched, but by the time somebody is reading search results they are not on the box page. The warning has to travel with the individual result or it does not get seen.</span>
+		<span class="d-block">It is not a red error. A three week old list is still the best information available, it just comes with a shrug. Loud enough to notice, quiet enough that it does not read as a failure.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="book">One book
+		<a class="small no-print" href="public/book.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">public/book.html</p>
+	
+<div class="entry" id="book-1">
+		<span class="num">1.</span> <strong>Availability is the headline, not a field</strong>
+		<span class="d-block">On a bookstore page the big element is the cover and the price. Here the only thing the reader actually came for is whether the book is in the box right now, so that gets the size and the color and sits above everything else.</span>
+		<span class="d-block">Author, format, and the blurb are all secondary. Anybody who wants to read about the book has twenty better sources. Nobody else can tell them if it is three blocks away.</span>
+	</div>
+	
+<div class="entry" id="book-2">
+		<span class="num">2.</span> <strong>Circulation count instead of star ratings</strong>
+		<span class="d-block">I thought about letting people rate books and dropped it. A five star average off two neighbors is noise, and moderating reviews is a whole product I do not want to design.</span>
+		<span class="d-block">Times checked out does the same job without any of that. It is generated by behavior nobody has to be asked for, it cannot be brigaded, and four times since March tells you more about a book in a specific neighborhood than a rating scraped from the internet would.</span>
+	</div>
+	
+<div class="entry" id="book-3">
+		<span class="num">3.</span> <strong>Checkout is on the honor system, by design</strong>
+		<span class="d-block">There is no way to verify somebody is at the box, and I am not going to pretend otherwise with a geofence that fails indoors and in winter. The QR code in the lid is the honest version. It is a nudge toward doing it at the right moment, not a lock.</span>
+		<span class="d-block">Checkout also needs no account. Asking a neighbor to register before they can take a free book out of a wooden box would kill the thing it is trying to measure. Email is optional and only buys you the return reminder.</span>
+	</div>
+	
+<div class="entry" id="book-4">
+		<span class="num">4.</span> <strong>Never came back is a real state</strong>
+		<span class="d-block">Books disappear from these boxes. That is not a bug in the neighborhood, it is how a free book box works, and a system that cannot represent it will slowly fill up with phantom inventory that makes every list wrong.</span>
+		<span class="d-block">So there is a fourth state past checked out, and it is gray and unlinked rather than red. The curator is not owed an apology and the neighbor who took it is not a thief. It just means stop counting this one.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="library">One box and its list
+		<a class="small no-print" href="public/library.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">public/library.html</p>
+	
+<div class="entry" id="library-1">
+		<span class="num">1.</span> <strong>Block, not street address</strong>
+		<span class="d-block">The box is in somebody's front yard. Printing the exact house number turns a public page into a directory of where a specific family lives, and the curator has no say in who reads it.</span>
+		<span class="d-block">The block plus the map pin gets a stranger close enough to find a brightly painted box on a post, which is all the precision anybody needs. This was the one privacy call I did not want to get wrong, so it is also written up in the policy page.</span>
+	</div>
+	
+<div class="entry" id="library-2">
+		<span class="num">2.</span> <strong>Recently added is the default sort</strong>
+		<span class="d-block">Alphabetical by title is the librarian answer and it is wrong here. Somebody checking a box they already know is looking for what changed since last time, and new arrivals are the only reason to come back.</span>
+		<span class="d-block">Alphabetical is still in the menu for when you are hunting one title. It just is not what the page opens on.</span>
+	</div>
+	
+<div class="entry" id="library-3">
+		<span class="num">3.</span> <strong>Late is visible but not accusing</strong>
+		<span class="d-block">A copy that is nine weeks out is useful information. It is also not a crime, and the public page is the wrong place to shame anybody, especially since the neighbor who has it may well never see this.</span>
+		<span class="d-block">So the row gets a red edge and a plain date and no word like overdue or violation. The curator can see the same row in their own tools and decide to let it go, which is usually what happens.</span>
+	</div>
+	
+<div class="entry" id="library-4">
+		<span class="num">4.</span> <strong>First name only, no contact method</strong>
+		<span class="d-block">Curators get a first name so the box feels like it belongs to a person instead of a database. They do not get an email link, a message form, or a last name.</span>
+		<span class="d-block">Giving strangers a direct line to somebody's inbox because they volunteered to put a box in their yard is how you get curators to quit. Anything that really needs a human, like a broken box or a bad donation, goes to the site and gets forwarded, and that is the one thing worth building a form for later.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="map">The map
+		<a class="small no-print" href="public/map.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">public/map.html</p>
+	
+<div class="entry" id="map-1">
+		<span class="num">1.</span> <strong>The permission ask waits until here</strong>
+		<span class="d-block">The home page took a typed ZIP so nothing was asked for before the person had a reason to say yes. By the time somebody has opened a map, use my location is obviously useful, so this is where the browser prompt belongs.</span>
+		<span class="d-block">Same answer either way, and if they deny it the page still works because it already has a ZIP. Nothing is gated on a permission the person can refuse.</span>
+	</div>
+	
+<div class="entry" id="map-2">
+		<span class="num">2.</span> <strong>The marker is the book count</strong>
+		<span class="d-block">Every map of this kind uses an identical teardrop for every location, which means the map tells you nothing until you have tapped five of them. Putting the number of books inside the marker makes the map answer a question on sight.</span>
+		<span class="d-block">Gray instead of green when the list is stale or nearly empty, so a box with four books and no update since spring does not look like a destination. One glance sorts six boxes into worth the walk and not today.</span>
+	</div>
+	
+<div class="entry" id="map-3">
+		<span class="num">3.</span> <strong>Hand drawn instead of a real map</strong>
+		<span class="d-block">This is an svg I drew, not a screenshot. Pasting a Google or Mapbox image into a school project means shipping somebody else's licensed tiles, and a flat screenshot cannot carry the markers that are the actual design idea here.</span>
+		<span class="d-block">A real build drops a Mapbox static image in at the same size and keeps the markers and the blue dot exactly as they are. Nothing above this line would change.</span>
+	</div>
+	
+<div class="entry" id="map-4">
+		<span class="num">4.</span> <strong>No clustering, no heat map</strong>
+		<span class="d-block">Six markers in a couple of square miles does not need clustering, and a heat map of book boxes would be a chart about nothing. The scale of the real data is small, so the map stays a plain map.</span>
+		<span class="d-block">Worth writing down because the pull toward adding a layer is strong, and the honest answer is that at this size the list beside it is doing most of the work anyway.</span>
+	</div>
+	
+<div class="entry" id="map-5">
+		<span class="num">5.</span> <strong>A list next to the map, always</strong>
+		<span class="d-block">A map alone is unusable with a keyboard, unusable with a screen reader, and bad on a phone held one handed. The list is not a fallback that appears when something fails, it is just there, and it carries the distances and the staleness that the markers cannot.</span>
+		<span class="d-block">On a narrow screen the map shrinks and the list stays whole, and that is the right way round. The course chapters on visual structure are basically this point, so it is the one accessibility decision I wrote up properly.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="empty">A box with nothing in it
+		<a class="small no-print" href="public/empty.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">public/empty.html</p>
+	
+<div class="entry" id="empty-1">
+		<span class="num">1.</span> <strong>Say the real reason it looks empty</strong>
+		<span class="d-block">There is a difference between a box with nothing in it and a box nobody has updated, and the page cannot actually tell which one this is. So it says both out loud instead of picking one.</span>
+		<span class="d-block">An empty state that admits what it does not know beats a confident one that is wrong. The alternative, a cheerful no books found, would send somebody 1.6 miles to find a full box with a lazy curator.</span>
+	</div>
+	
+<div class="entry" id="empty-2">
+		<span class="num">2.</span> <strong>An empty state has to offer a next click</strong>
+		<span class="d-block">The worst version of this page is a sad sentence and nothing to press. Every dead end in the prototype gets at least one way forward, and here the two obvious ones are a different box nearby and a wider search.</span>
+		<span class="d-block">Try a different box is the primary because the person is probably standing somewhere and wants a destination, not a search field.</span>
+	</div>
+	
+<div class="entry" id="empty-3">
+		<span class="num">3.</span> <strong>Turn the empty page into the donation ask</strong>
+		<span class="d-block">An empty box page is the one moment somebody is looking straight at the problem, which makes it the best possible place to ask for a donation. The home page asks for curators, this page asks for books.</span>
+		<span class="d-block">And it specifically does not ask them to log a donation in the system. Drive by donating is the normal behavior and adding paperwork to it would reduce the number of books in the box, and that is the opposite of the point.</span>
+	</div>
+	
+<h2 id="sec-registering-a-box">Registering a box</h2>
+	<p class="text-muted">The only part of the product with a password in it.</p>
+	
+<h3 class="h5 mt-4" id="signup">Register a box
+		<a class="small no-print" href="auth/signup.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">auth/signup.html</p>
+	
+<div class="entry" id="signup-1">
+		<span class="num">1.</span> <strong>One account type, and most people never make one</strong>
+		<span class="d-block">The usual move is accounts for everybody, with roles underneath. I went the other way. Neighbors are anonymous forever and the only account in the system belongs to somebody who runs a box, which deletes a whole wing of the design. No borrower profiles, no borrowing history tied to a person, no password reset for somebody who took one book in March.</span>
+		<span class="d-block">The nav is stripped down here too. Once a person is halfway through registering, links back out to the catalog are just ways to lose them, so the only one left is the deliberate exit.</span>
+	</div>
+	
+<div class="entry" id="signup-2">
+		<span class="num">2.</span> <strong>Say where the data goes, next to the field</strong>
+		<span class="d-block">People fill in an email wondering whether it ends up public. A privacy policy three clicks away does not answer that at the moment the question comes up, so the answer goes under the field.</span>
+		<span class="d-block">It is a real promise the rest of the design has to keep. The box page shows a first name and no contact method because of this sentence.</span>
+	</div>
+	
+<div class="entry" id="signup-3">
+		<span class="num">3.</span> <strong>One password rule instead of five</strong>
+		<span class="d-block">A symbol, a number, an uppercase letter, and no dictionary words produces worse passwords and more reset emails. Length alone is the rule that actually helps, so it is the only one.</span>
+		<span class="d-block">It also shortens this screen, which matters more than it sounds. Every line of validation copy is another thing between a volunteer and a registered box.</span>
+	</div>
+	
+<div class="entry" id="signup-4">
+		<span class="num">4.</span> <strong>Collect the address, publish the block</strong>
+		<span class="d-block">The map needs a real address to put a pin in the right spot, and the public page should not print the house number of the family that volunteered. Those are not in conflict as long as the form says which is which right here.</span>
+		<span class="d-block">Doing it any other way means either a useless map or a curator finding their address published and not knowing they agreed to it.</span>
+	</div>
+	
+<div class="entry" id="signup-5">
+		<span class="num">5.</span> <strong>Four fields, then verify</strong>
+		<span class="d-block">Everything else a box needs, hours, description, photo, what kinds of books, lives in box settings after the account exists. Putting it on this form would double the length of the only screen where people quit.</span>
+		<span class="d-block">The form submits to the check your email page rather than straight into the dashboard, because the address has to be proven before anything that depends on it gets built.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="verify">Check your email
+		<a class="small no-print" href="auth/verify.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">auth/verify.html</p>
+	
+<div class="entry" id="verify-1">
+		<span class="num">1.</span> <strong>A dead end that tells you what to do next</strong>
+		<span class="d-block">This screen exists only because the person has to leave the site and come back, and that is the most fragile moment in any signup. So it repeats the address they typed, in case of a typo, says how long the link lasts, and offers the two escape hatches people actually need.</span>
+		<span class="d-block">It does not auto refresh or poll waiting for the click. Somebody who verifies on their phone and left this tab open on a laptop is a normal outcome, not a state to manage.</span>
+	</div>
+	
+<div class="entry" id="verify-2">
+		<span class="num">2.</span> <strong>The emails are design pages too</strong>
+		<span class="d-block">Five of the pages in this project are emails, and they get designed with the same care as the screens because for a curator who checks in once a month the email is the product. A broken reminder is worse than a broken page, since nobody is going to come looking for it.</span>
+		<span class="d-block">A real site would obviously not link to its own outgoing mail. The button is scaffolding so the flow can be walked end to end, and that is the thing a design prototype has to let you do.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="signin">Sign in
+		<a class="small no-print" href="auth/signin.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">auth/signin.html</p>
+	
+<div class="entry" id="signin-1">
+		<span class="num">1.</span> <strong>Stay signed in, checked by default</strong>
+		<span class="d-block">The security instinct is to leave this off. For this product that is the wrong trade. A curator signs in maybe twice a month, on their own phone, to say a book came back. There is no money, no personal data about anybody else, and nothing worth stealing except the ability to edit a list of used paperbacks.</span>
+		<span class="d-block">Making them type a password every time is the single easiest way to get an inventory that never gets updated, and that is the only real failure mode this product has.</span>
+	</div>
+	
+<div class="entry" id="signin-2">
+		<span class="num">2.</span> <strong>Reset link is small and next to the button</strong>
+		<span class="d-block">People go looking for this the second a password fails, so it sits right where they are already looking instead of in a footer. It stays visually quiet because for the common case it is the wrong link and should not compete with the sign in button.</span>
+		<span class="d-block">No error state is mocked here. The wrong password message would be a sixth auth page and it would say the obvious thing. That is a worse use of a design page than any of the ones I kept.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="forgot">Forgot password
+		<a class="small no-print" href="auth/forgot.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">auth/forgot.html</p>
+	
+<div class="entry" id="forgot-1">
+		<span class="num">1.</span> <strong>Same answer for an address we don't have</strong>
+		<span class="d-block">If the page said no account with that email, anybody could type addresses in and learn which of their neighbors runs a box. That is a small leak in a small system but it is exactly the kind that is free to close, so it is closed.</span>
+		<span class="d-block">The cost is a confusing minute for somebody who mistyped their own address. The fix for that is the next line, telling them to check spam and then try registering, which lands them somewhere useful either way.</span>
+	</div>
+	
+<div class="entry" id="forgot-2">
+		<span class="num">2.</span> <strong>Prototype shortcut, again</strong>
+		<span class="d-block">Same scaffolding as the verify screen. Without it the reset flow is three pages that cannot be connected, which makes it impossible to review as a flow.</span>
+		<span class="d-block">These buttons are the only thing in the prototype that could not exist in the real product. Everything else is a design decision I would defend.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="reset">Set a new password
+		<a class="small no-print" href="auth/reset.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">auth/reset.html</p>
+	
+<div class="entry" id="reset-1">
+		<span class="num">1.</span> <strong>Show who you're about to change</strong>
+		<span class="d-block">Somebody arriving from a link in their inbox has no idea which account this screen belongs to, especially if two people in a house both curator boxes. Printing the address removes the guess.</span>
+		<span class="d-block">It also catches the case where an old reset email got clicked by mistake. If the address is wrong, the person knows before they type a password into the wrong account.</span>
+	</div>
+	
+<div class="entry" id="reset-2">
+		<span class="num">2.</span> <strong>No confirm field, and it lands in the dashboard</strong>
+		<span class="d-block">Typing the password twice is a habit from before anyone could reveal the field. It doubles the typing and catches almost nothing, and the recovery for a typo is this same email flow again.</span>
+		<span class="d-block">Submitting goes straight to the dashboard rather than back to sign in. The person already proved they own the inbox, so asking them to log in with the password they just set is a step that exists for nobody's benefit.</span>
+	</div>
+	
+<div class="entry" id="reset-3">
+		<span class="num">3.</span> <strong>Reset links die in an hour, verify links last a day</strong>
+		<span class="d-block">These two look like the same kind of link and should not have the same lifetime. A verification link is often opened on another device hours later, so 24 hours is a convenience with almost no downside. A reset link is a live key to the account, so it gets the shortest window somebody can realistically act in.</span>
+		<span class="d-block">Written here so the difference reads as a decision instead of an inconsistency, which is what it would look like otherwise.</span>
+	</div>
+	
+<h2 id="sec-the-emails">The emails</h2>
+	<p class="text-muted">Five pages that are not web pages. For a curator who checks in once a month, these are the product.</p>
+	
+<h3 class="h5 mt-4" id="verify-email">Verify your address
+		<a class="small no-print" href="email/verify-email.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">email/verify-email.html</p>
+	
+<div class="entry" id="verify-email-1">
+		<span class="num">1.</span> <strong>The button says what happens, not click here</strong>
+		<span class="d-block">Verify your email address describes a chore the site needs done. Put my box on the map describes the thing the person actually wanted when they filled in the form two minutes ago.</span>
+		<span class="d-block">Same link either way. The difference is whether the email reads like paperwork or like the last step of something they already started.</span>
+	</div>
+	
+<div class="entry" id="verify-email-2">
+		<span class="num">2.</span> <strong>Expired links need an out, in the email</strong>
+		<span class="d-block">Links expire and nobody reads the email the day it arrives. The recovery has to be in the message itself, because by the time somebody clicks a dead link they are on an error page that may not know who they are.</span>
+		<span class="d-block">Nothing is lost matters too. The real fear with a half finished signup is that trying again will make a duplicate box.</span>
+	</div>
+	
+<div class="entry" id="verify-email-3">
+		<span class="num">3.</span> <strong>Say what inaction does</strong>
+		<span class="d-block">Every account email of this kind has a line like if this wasn't you, which usually trails off without saying what to do. The useful version says doing nothing is the fix and names the consequence, which is none.</span>
+		<span class="d-block">It also means the system cannot be used to pester somebody. The worst a stranger can do with your address is send you one email you can throw away.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="welcome-email">Your box is live
+		<a class="small no-print" href="email/welcome-email.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">email/welcome-email.html</p>
+	
+<div class="entry" id="welcome-email-1">
+		<span class="num">1.</span> <strong>Ask for ten books, not the whole box</strong>
+		<span class="d-block">A curator looking at an empty inventory and a box of forty paperbacks will put it off forever. Eight or ten is a thing you can finish standing in the driveway, and ten listed books is already more than the neighborhood had before.</span>
+		<span class="d-block">This is the one place the product gets to set an expectation about effort, and setting it low is the whole reason anybody finishes.</span>
+	</div>
+	
+<div class="entry" id="welcome-email-2">
+		<span class="num">2.</span> <strong>The welcome email has to re sell the promise</strong>
+		<span class="d-block">The signup page promised less work. The moment somebody is staring at an empty inventory is exactly when they stop believing it, so the claim gets repeated here with the reason attached.</span>
+		<span class="d-block">It is also the only honest pitch available. The system really cannot make anybody do anything, so the design has to make the easy path the one that keeps data fresh.</span>
+	</div>
+	
+<div class="entry" id="welcome-email-3">
+		<span class="num">3.</span> <strong>Saying out loud that there is no authority</strong>
+		<span class="d-block">People assume a site like this has an organization behind it, which makes them cautious about doing it wrong. There is no organization. No moderator reads the listings, no one can take a box down, and nothing gets approved.</span>
+		<span class="d-block">Saying it plainly in the first email is the only way to stop a curator from waiting for permission that is never coming. It also sets up the honor system page, and that is all the rules there are in one screen.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="checkout-receipt">You took a book
+		<a class="small no-print" href="email/checkout-receipt.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">email/checkout-receipt.html</p>
+	
+<div class="entry" id="checkout-receipt-1">
+		<span class="num">1.</span> <strong>The receipt is really just a return button</strong>
+		<span class="d-block">A passerby gave an email address for exactly one reason, to not have to find this site again when they are standing at the box with the book in their hand. So the whole email is one link that marks it returned.</span>
+		<span class="d-block">Keeping the link alive indefinitely matters. A book that comes back in four months should still be markable, because the alternative is an inventory that slowly fills with copies listed as out forever.</span>
+	</div>
+	
+<div class="entry" id="checkout-receipt-2">
+		<span class="num">2.</span> <strong>Promise the exact number of emails</strong>
+		<span class="d-block">Nobody hands over an address to a stranger's book box without wondering what they just signed up for. Saying one nudge, two weeks, that is all is a specific promise that is easy to keep and easy to check.</span>
+		<span class="d-block">And it is the honest ceiling. Any more than that and a free paperback starts costing attention, and that is the fastest way to make people stop checking books out at all.</span>
+	</div>
+	
+<div class="entry" id="checkout-receipt-3">
+		<span class="num">3.</span> <strong>Say there is no penalty, because there isn't</strong>
+		<span class="d-block">Every borrowing interface people have ever used had fines behind it, so they read due in two weeks as a threat. There is nothing behind this one. Pretending otherwise would be a bluff the system cannot back, and the first person who tests it learns the whole thing is theater.</span>
+		<span class="d-block">Saying it instead buys something real. A person who knows nothing bad happens is more likely to tell the truth later, and that is the only way the data stays good.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="due-soon">The one nudge
+		<a class="small no-print" href="email/due-soon.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">email/due-soon.html</p>
+	
+<div class="entry" id="due-soon-1">
+		<span class="num">1.</span> <strong>Ask a question instead of making a demand</strong>
+		<span class="d-block">The library version of this email says your item is due. This one asks whether the book is already back, because the most likely answer is yes and the person just forgot to tap anything.</span>
+		<span class="d-block">Framing it as a question also makes the ignore case fine. Somebody still reading can delete this without feeling chased, and they are more likely to mark it returned later if the first nudge was not rude.</span>
+	</div>
+	
+<div class="entry" id="due-soon-2">
+		<span class="num">2.</span> <strong>Two buttons, and both are true answers</strong>
+		<span class="d-block">One button means the only way to respond is to say what the email wants to hear. Adding still reading it gives the honest answer a place to go, and it pushes the row on the curator's screen from late back to out.</span>
+		<span class="d-block">A third option, it's gone or I lost it, got cut. Nobody is going to volunteer that, and the curator can mark it gone themselves whenever they notice. Designing a confession flow nobody uses is worse than letting the copy quietly age out.</span>
+	</div>
+	
+<div class="entry" id="due-soon-3">
+		<span class="num">3.</span> <strong>Name the actual stake, which is small</strong>
+		<span class="d-block">There is nothing to hold over anybody here, so the email uses the only motivation that is real. A person three blocks away cannot tell what is on the shelf. That is a smaller reason than a fine but it is a true one, and it is about a neighbor rather than an institution.</span>
+		<span class="d-block">Naming Dana does a lot of work in one word. It turns tapping a button for a database into doing a tiny favor for somebody who put a book box in their yard.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="reset-email">Password reset
+		<a class="small no-print" href="email/reset-email.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">email/reset-email.html</p>
+	
+<div class="entry" id="reset-email-1">
+		<span class="num">1.</span> <strong>Shortest email in the set, on purpose</strong>
+		<span class="d-block">A reset email has one job and every extra sentence is a place for somebody in a hurry to get lost. No welcome, no tips, no links to the dashboard, because anything else here competes with the only button that matters.</span>
+		<span class="d-block">It is also the one email most likely to be read on a phone in a half panic, and that is the argument for making it this short.</span>
+	</div>
+	
+<div class="entry" id="reset-email-2">
+		<span class="num">2.</span> <strong>Explain why ignoring it is safe</strong>
+		<span class="d-block">If this wasn't you, ignore this email is the standard line and it leaves people wondering whether a stranger is now partway into their account. Spelling out that nothing changes without the link, and that the requester never saw this message, answers the actual worry.</span>
+		<span class="d-block">It is two extra clauses and it is the difference between an email that reassures and one that alarms.</span>
+	</div>
+	
+<h2 id="sec-the-curator-side">The curator side</h2>
+	<p class="text-muted">Behind the only sign in. One curator, one box, nothing above them.</p>
+	
+<h3 class="h5 mt-4" id="dashboard">Dashboard
+		<a class="small no-print" href="app/dashboard.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">app/dashboard.html</p>
+	
+<div class="entry" id="dashboard-1">
+		<span class="num">1.</span> <strong>One curator, one box, nobody above it</strong>
+		<span class="d-block">There is no admin tier, no regional coordinator, and no staff account that can reach into somebody else's inventory. Every curator is the top of their own tiny system, which is also how the real thing works, since the box is literally on their property.</span>
+		<span class="d-block">That deletes most of what usually makes a product like this big. No permissions matrix, no approval queue, no appeals, no roles screen. The only two kinds of person in the whole design are a curator with one box and a passerby with no account at all.</span>
+	</div>
+	
+<div class="entry" id="dashboard-2">
+		<span class="num">2.</span> <strong>Four counts, and none of them is a score</strong>
+		<span class="d-block">The obvious dashboard metric is something like a health percentage or a streak, and both would be lying about a hobby. Nine books gone is not a failure, it is nine books that found homes, and that is the whole point of a free book box.</span>
+		<span class="d-block">So the numbers are flat counts with plain labels and no color grading. Out a long time is the only one that is a nudge, and even that is worded as an observation rather than a problem.</span>
+	</div>
+	
+<div class="entry" id="dashboard-3">
+		<span class="num">3.</span> <strong>A short list of actual tasks, or nothing</strong>
+		<span class="d-block">A curator opens this maybe twice a month and wants to know whether there is anything to do. So the dashboard leads with a to do list that can legitimately be empty, instead of a feed that always has something in it to look busy.</span>
+		<span class="d-block">Everything on it is one tap. Nothing here opens a form, because the moment a task needs typing it gets put off and the list stops being trustworthy.</span>
+	</div>
+	
+<div class="entry" id="dashboard-4">
+		<span class="num">4.</span> <strong>One primary action on the whole screen</strong>
+		<span class="d-block">Adding donated books is the only job the system cannot do without the curator, so it is the only primary button. Inventory, checkouts, and settings are all in the nav as secondary things you go find when you want them.</span>
+		<span class="d-block">If a curator only ever learns one button on this page, this is the one that keeps their box's list worth reading.</span>
+	</div>
+	
+<div class="entry" id="dashboard-5">
+		<span class="num">5.</span> <strong>A link to your own public page, always visible</strong>
+		<span class="d-block">A curator editing an inventory has no idea how any of it looks to a stranger, and the public page is where the staleness badge and the block level map show up. Those are the two things most likely to surprise somebody.</span>
+		<span class="d-block">Opening in a new tab is deliberate. It is a peek, not a navigation, and losing your place in the admin to go look would stop people doing it.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="inventory">Inventory
+		<a class="small no-print" href="app/inventory.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">app/inventory.html</p>
+	
+<div class="entry" id="inventory-1">
+		<span class="num">1.</span> <strong>Gone books stay in the list</strong>
+		<span class="d-block">The tidy move is to delete a book once it never comes back. I keep it, filtered out of the default view but still there, because a curator who lists a donated copy of a book that walked off in July should be able to see it happened before.</span>
+		<span class="d-block">It also makes the gone count on the dashboard mean something. Nine books gone since spring is a fact about the neighborhood, and deleting the rows throws it away for no benefit.</span>
+	</div>
+	
+<div class="entry" id="inventory-2">
+		<span class="num">2.</span> <strong>The curator can do a neighbor's job, but doesn't have to</strong>
+		<span class="d-block">Every status a passerby can set, the curator can set too, because somebody will take a book without touching the QR code and the curator will notice the gap on the shelf. Without this the list can only get more wrong.</span>
+		<span class="d-block">It is a secondary outline button and not the main thing on the row, because a curator who feels responsible for logging every movement will burn out. The buttons are for the exceptions.</span>
+	</div>
+	
+<div class="entry" id="inventory-3">
+		<span class="num">3.</span> <strong>Nothing changes on its own</strong>
+		<span class="d-block">A library system would flip this to lost automatically after some number of weeks. This one never changes a status by itself, it just shows the elapsed time and lets the curator decide.</span>
+		<span class="d-block">The reason is that the clock has no idea what happened. The book might be on a neighbor's porch, or at a cabin, or really gone, and the curator often actually knows. Automating the guess would produce a wrong inventory while looking decisive.</span>
+	</div>
+	
+<div class="entry" id="inventory-4">
+		<span class="num">4.</span> <strong>Every status is reversible</strong>
+		<span class="d-block">Books come back months later, and a curator who taps the wrong row should not have to re enter the book. There is no confirm dialog on any of these buttons either, because undo is the right pattern when the worst case is one wrong word in a list of paperbacks.</span>
+		<span class="d-block">Confirm dialogs would double the taps on the one chore this product is asking somebody to do for free.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="add-book">Add a book
+		<a class="small no-print" href="app/add-book.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">app/add-book.html</p>
+	
+<div class="entry" id="add-book-1">
+		<span class="num">1.</span> <strong>Scanning first, typing second</strong>
+		<span class="d-block">Typing a title and author is about thirty seconds a book, which is twenty minutes for a full box and the reason most inventories die after six entries. A barcode scan is two seconds and it is the single biggest win in this whole design.</span>
+		<span class="d-block">Typing stays right underneath it though, because a lot of the books in these boxes are from the seventies and have no scannable barcode, and kids books get their covers chewed.</span>
+	</div>
+	
+<div class="entry" id="add-book-2">
+		<span class="num">2.</span> <strong>Only the title is required</strong>
+		<span class="d-block">Author, condition, and the note are all optional, and the help text says so in plain words. A row that just says Pachinko is searchable and useful, and it is infinitely better than the row that never got created because the form felt like a chore.</span>
+		<span class="d-block">This is the opposite of how a cataloguing tool normally works, and it is the right call when the person filling it in is a volunteer standing in their driveway holding a stack of books.</span>
+	</div>
+	
+<div class="entry" id="add-book-3">
+		<span class="num">3.</span> <strong>Three conditions, not a 1 to 10 scale</strong>
+		<span class="d-block">Library condition grading has six or seven levels and nobody outside a library can tell them apart. For a free paperback the only distinction a neighbor cares about is whether it will survive being read.</span>
+		<span class="d-block">Three choices also means the field can be answered without thinking, and that is the only way an optional field gets filled in at all.</span>
+	</div>
+	
+<div class="entry" id="add-book-4">
+		<span class="num">4.</span> <strong>Add another keeps you in the form</strong>
+		<span class="d-block">Nobody adds exactly one book. They add the eleven that showed up in a grocery bag, so the second button keeps the form open with the fields cleared instead of bouncing back to a list that has to be re navigated.</span>
+		<span class="d-block">Small thing, but it is the difference between adding eleven books and adding three and giving up.</span>
+	</div>
+	
+<div class="entry" id="add-book-5">
+		<span class="num">5.</span> <strong>Show the pile growing</strong>
+		<span class="d-block">Cataloguing is boring and invisible, and a form that clears itself gives you nothing to show for ten minutes of typing. The running list is the only feedback available and it costs nothing to put there.</span>
+		<span class="d-block">It doubles as a duplicate check, since the thing you are most likely to do on book nine is enter book seven again.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="checkouts">Coming and going
+		<a class="small no-print" href="app/checkouts.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">app/checkouts.html</p>
+	
+<div class="entry" id="checkouts-1">
+		<span class="num">1.</span> <strong>A log to read, not a queue to clear</strong>
+		<span class="d-block">This could easily have been an approval queue where the curator confirms each thing a neighbor claims. That would be a job, and it would be a job created by distrust, in a system whose entire premise is that people take books out of a wooden box and bring them back.</span>
+		<span class="d-block">So it is a feed you glance at. Nothing is pending, nothing needs a decision, and if a row is wrong you fix it on the inventory screen. The absence of a queue here is the single clearest expression of the honor system in the whole design.</span>
+	</div>
+	
+<div class="entry" id="checkouts-2">
+		<span class="num">2.</span> <strong>No names, ever</strong>
+		<span class="d-block">The system knows an email address for anybody who wanted a return reminder, and it never shows it here. A curator who could see which neighbor took which book would be able to watch the reading habits of people on their street, which is a really creepy thing to accidentally build.</span>
+		<span class="d-block">The curator loses nothing by not knowing. Every action they can take on a book works the same whether they know who has it, and the one case where a name would help, a book that never comes back, is not a case this product should be trying to solve.</span>
+	</div>
+	
+<div class="entry" id="checkouts-3">
+		<span class="num">3.</span> <strong>One timeline for everything, including your own edits</strong>
+		<span class="d-block">Splitting this into what neighbors did and what I did would mean two screens and a mental join between them. Everything that ever happened to a book lands in one list, which is also the only way to make sense of a sequence like taken, nudged, marked gone, came back.</span>
+		<span class="d-block">Your own actions showing up here is a small honesty thing too. The log is a record of the box, not a report card on the neighborhood.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="box-settings">Box settings
+		<a class="small no-print" href="app/box-settings.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">app/box-settings.html</p>
+	
+<div class="entry" id="box-settings-1">
+		<span class="num">1.</span> <strong>Show the published version right under the field</strong>
+		<span class="d-block">The signup form promised only the block shows publicly, and this is where a curator comes back months later to check whether that was true. Printing the exact public string under the input is cheaper and more convincing than any privacy page.</span>
+		<span class="d-block">It also prevents a quiet drift where the implementation starts publishing more than the copy promised, because the promise is sitting right there in the form.</span>
+	</div>
+	
+<div class="entry" id="box-settings-2">
+		<span class="num">2.</span> <strong>The lending period is a setting, and it has an off switch</strong>
+		<span class="d-block">Two weeks is the default because it is what people expect from a library, but some curators will think any reminder at all is too much for a free book. Never is a real option, not buried, and choosing it does not degrade anything else.</span>
+		<span class="d-block">There is no setting for a late fee, a limit on how many books somebody can take, or a required email address, because none of those exist. The shape of this screen is the policy, and what it leaves out is the point.</span>
+	</div>
+	
+<div class="entry" id="box-settings-3">
+		<span class="num">3.</span> <strong>Three exits, because people move</strong>
+		<span class="d-block">A curator takes down a box, goes on a long trip, or sells the house, and a product with no way out just leaves a dead pin on the map confusing the neighborhood forever. Stale data is the only real failure this system has, and most of it comes from people who quit without a way to say so.</span>
+		<span class="d-block">Handing it over matters most. The box physically stays in the yard when the house changes hands, and transferring the list to whoever lives there now is how a box survives longer than its first curator.</span>
+	</div>
+	
+<div class="entry" id="box-settings-4">
+		<span class="num">4.</span> <strong>The QR code is the whole borrower interface</strong>
+		<span class="d-block">A passerby has no app and no account, so the only way they ever reach this system is a square of paper inside a wooden lid. Everything on the public side has to work from a cold scan by a stranger holding a book, in one hand, outdoors.</span>
+		<span class="d-block">So the code links to the box page rather than a generic home page. One scan, and they are looking at the list of the box they are standing in front of.</span>
+	</div>
+	
+<h2 id="sec-flows-states-and-the-honor-system">Flows, states and the honor system</h2>
+	<p class="text-muted">The pages that are not screens. Where the rules actually live.</p>
+	
+<h3 class="h5 mt-4" id="flow-signup">Registering, end to end
+		<a class="small no-print" href="flows/flow-signup.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">flows/flow-signup.html</p>
+	
+<div class="entry" id="flow-signup-1">
+		<span class="num">1.</span> <strong>Abandoned signups die quietly</strong>
+		<span class="d-block">A fair number of people will fill in the form and never open the email, and the tempting fix is a chase sequence three days later. I am not sending it. A box that was never confirmed may not exist, may be in a yard whose owner changed their mind, and putting a pin on the map for it would make the map worse.</span>
+		<span class="d-block">Doing nothing is also the privacy respecting answer. Somebody who typed an address and walked away has not agreed to a relationship.</span>
+	</div>
+	
+<div class="entry" id="flow-signup-2">
+		<span class="num">2.</span> <strong>The box goes live empty, and that's fine</strong>
+		<span class="d-block">The alternative is holding the pin back until there are ten books listed, so the map never shows an empty box. I decided against it. A pin with zero books still tells a neighbor a box exists on that corner, which is all littlefreelibrary.org ever told them, so the floor here is the competition's ceiling.</span>
+		<span class="d-block">It also means the curator gets the reward, their box on a map, before doing the boring part. Making them earn the pin by cataloguing first is how you get nobody to catalogue.</span>
+	</div>
+	
+<div class="entry" id="flow-signup-3">
+		<span class="num">3.</span> <strong>Duplicates are a social problem, not a feature</strong>
+		<span class="d-block">With no moderator there is nobody to merge two boxes or decide who the real curator is. I could build a claim dispute flow, and it would be three screens used roughly never, for a case where the two people involved live on the same block and can knock on a door.</span>
+		<span class="d-block">So the design accepts a duplicate pin as the cost of having no authority. Writing that down as a deliberate choice is the point of this section, because otherwise it reads as a hole somebody forgot about.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="flow-checkout">Borrow and return
+		<a class="small no-print" href="flows/flow-checkout.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">flows/flow-checkout.html</p>
+	
+<div class="entry" id="flow-checkout-1">
+		<span class="num">1.</span> <strong>Nothing in this flow requires registering</strong>
+		<span class="d-block">This is the flow the whole product lives or dies on, and it runs end to end with no account, no password, and no name. Email is asked for once, optionally, and only buys a return reminder.</span>
+		<span class="d-block">Every system like this that asks a passerby to register first ends up with an inventory maintained entirely by the curator, and that is the thing this design is trying to avoid. The honor system is not a compromise here, it is how it works.</span>
+	</div>
+	
+<div class="entry" id="flow-checkout-2">
+		<span class="num">2.</span> <strong>Skip has to be as easy as typing</strong>
+		<span class="d-block">If the email field is required, a chunk of people back out and take the book without logging it, which means the data is worse and the curator is doing more work. A skippable field gets a worse mailing list and a better inventory, and the inventory is the product.</span>
+		<span class="d-block">The skip button is a full button, not a small gray link under the form. Making the escape hatch look reluctant is a way of requiring the field while pretending not to.</span>
+	</div>
+	
+<div class="entry" id="flow-checkout-3">
+		<span class="num">3.</span> <strong>The unhappy paths are most of the traffic</strong>
+		<span class="d-block">With a wooden box on a sidewalk, the flow above is probably the minority case. Most books get taken by somebody who never scans anything, and a lot of them never come back. A design that only draws the happy path is describing a product for people who do not exist.</span>
+		<span class="d-block">Each branch below needed a decision about who notices and who fixes it, and in every case the answer is the curator, with one tap, whenever they happen to look. Nothing changes status on a timer.</span>
+	</div>
+	
+<div class="entry" id="flow-checkout-4">
+		<span class="num">4.</span> <strong>Gone is not permanent either</strong>
+		<span class="d-block">A book marked gone in July and dropped back in the box in November has to be able to come home without the curator re typing it. So gone is a status, never a deletion, and the return link in a four month old email still works.</span>
+		<span class="d-block">This is the one decision that makes the data model slightly more annoying and the product noticeably more honest. Nothing about a free book box is final.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="states">States of a copy
+		<a class="small no-print" href="flows/states.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">flows/states.html</p>
+	
+<div class="entry" id="states-1">
+		<span class="num">1.</span> <strong>Four states, and I argued myself down from seven</strong>
+		<span class="d-block">The first version had reserved, on hold, damaged, and in repair, copied out of habit from how a real library works. None of them survive contact with a wooden box. You cannot reserve a book a stranger might take ten minutes before you arrive, and nobody repairs a free paperback, they throw it out or they do not.</span>
+		<span class="d-block">What is left is the smallest set that still describes reality. Damaged is a note on the row, not a state, because a rough paperback is still on the shelf and still borrowable. Cutting three states deleted about six screens.</span>
+	</div>
+	
+<div class="entry" id="states-2">
+		<span class="num">2.</span> <strong>Out a long time is not really a fourth state</strong>
+		<span class="d-block">It is the out state with elapsed time past the box's reminder window, computed rather than stored, so nothing has to flip it and why changing the window from two weeks to four in settings silently re colors rows instead of migrating anything.</span>
+		<span class="d-block">I kept it on this diagram anyway because it is a state as far as anybody looking at the screen is concerned, and a diagram that hides it would not match the inventory table.</span>
+	</div>
+	
+<div class="entry" id="states-3">
+		<span class="num">3.</span> <strong>Both roles can make the same transitions</strong>
+		<span class="d-block">There is no transition only a curator may perform and none only a passerby may. That is unusual, and it falls out of having no authority in the system. The curator is not approving anything, they are just the person most likely to be standing at the box when the list is wrong.</span>
+		<span class="d-block">It keeps the rules small. One table of four states and six transitions describes the entire product, and nobody has to look up who is allowed to do what.</span>
+	</div>
+	
+<div class="entry" id="states-4">
+		<span class="num">4.</span> <strong>No automatic transitions at all</strong>
+		<span class="d-block">This is the single rule that keeps the whole thing honest. Every stored state change in the diagram is caused by a person pressing something, so the inventory is a record of what somebody claimed rather than what a clock assumed.</span>
+		<span class="d-block">It does mean a neglected box slowly drifts out of date, so staleness is shown everywhere on the public side instead of being hidden. Admitting the list might be old is a better product than a list that keeps itself tidy by guessing.</span>
+	</div>
+	
+<h3 class="h5 mt-4" id="policy">The honor system
+		<a class="small no-print" href="flows/policy.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">flows/policy.html</p>
+	
+<div class="entry" id="policy-1">
+		<span class="num">1.</span> <strong>A policy page that exists to say there is no policy</strong>
+		<span class="d-block">Normally the project where somebody designs a lending system produces deposits, late fees, borrowing limits, damage liability, and a suspension process. I had all of that written down and threw it out, because every one of those rules needs somebody with the authority to apply it, and there is nobody.</span>
+		<span class="d-block">What is left is a page that explains the absence. It is shorter than a terms of service and it is the honest description of a wooden box in a stranger's yard. Keeping it as a design page was the right call, since a reviewer will absolutely ask where the policies went.</span>
+	</div>
+	
+<div class="entry" id="policy-2">
+		<span class="num">2.</span> <strong>The passerby outranks the curator on purpose</strong>
+		<span class="d-block">A passerby can change the status of a book in somebody else's inventory without proving who they are, which sounds like a bug. It is the design. The alternative is a curator who has to log every movement personally, and that is the job nobody volunteers for twice.</span>
+		<span class="d-block">The worst a bad actor can do with it is mark a few books wrong in one box, and the curator can undo any of it in one tap. The upside is an inventory that updates itself. That trade is the product.</span>
+	</div>
+	
+<div class="entry" id="policy-3">
+		<span class="num">3.</span> <strong>Listing the absences instead of staying quiet about them</strong>
+		<span class="d-block">Everybody arriving here has used a library, so they bring assumptions about fines and limits whether the site mentions them or not. Saying no late fees out loud is more useful than saying nothing, because silence reads as a fee that has not been explained yet.</span>
+		<span class="d-block">It is also a design constraint I can be held to. Every one of these lines rules out screens, and the reason the page count in this project is screens and flows instead of a billing section is sitting in this list.</span>
+	</div>
+	
+<div class="entry" id="policy-4">
+		<span class="num">4.</span> <strong>Staleness is the only consequence in the system</strong>
+		<span class="d-block">With no fees and no accounts, the only thing the design can do is visibility. A box whose list is current looks green on the map and worth walking to. A box nobody has touched since spring goes gray with the date showing.</span>
+		<span class="d-block">That is not a punishment, it is just the truth being published, and it is the only pressure available in a product with no authority. It also means the incentive points at the one behavior that matters, which is keeping the list honest.</span>
+	</div>
+	
+<div class="entry" id="policy-5">
+		<span class="num">5.</span> <strong>The only hard line in the product</strong>
+		<span class="d-block">Everything else here is a suggestion, and this one is not. The boxes are in front yards, and a public page that prints a house number plus a name plus an email is a directory of where specific families live, built out of their generosity.</span>
+		<span class="d-block">It shows up as a design constraint in four places. The address field's help text at signup, the published string under the field in settings, the block level map art rather than a point, and a box page with a first name and no form. That repetition is on purpose, because it is the one promise that would be expensive to break.</span>
+	</div>
+	
+<h2 id="sec-the-bits-underneath">The bits underneath</h2>
+	<p class="text-muted">Pieces the rest of the design is built out of.</p>
+	
+<h3 class="h5 mt-4" id="cursors">Cursors
+		<a class="small no-print" href="system/cursors.html" target="_blank">open the page &rarr;</a>
+	</h3>
+	<p class="small text-muted d-none d-print-block">system/cursors.html</p>
+	
+<div class="entry" id="cursors-1">
+		<span class="num">1.</span> <strong>Judge them at the size they get used</strong>
+		<span class="d-block">A cursor set is the easiest thing in the world to design badly, because you draw it at 400 percent where every curve looks considered. At actual size most of that turns into three grey pixels.</span>
+		<span class="d-block">So everything here is drawn at 32 by 32 from the start, and this page puts the real size next to the big one. The first pencil was lovely at 200 percent and read as a stick at 32. It got shorter and fatter and is now the clearest glyph in the set.</span>
+	</div>
+	
+<div class="entry" id="cursors-2">
+		<span class="num">2.</span> <strong>The flip is two frames, not an animation</strong>
+		<span class="d-block">The obvious way to do a page turn is an animated svg. Browsers will not do it. A cursor image is rasterised once and any animation inside it, SMIL or CSS, is simply ignored, so an animated cursor file is just a still of frame one.</span>
+		<span class="d-block">The way out is to let the user drive it. Pointer is the page mid turn, active is the page landing, and pressing the mouse is what moves between them. Two files and one css rule, and the motion now means something rather than looping at nobody.</span>
+		<span class="d-block">Both frames put their point on 4 3. If the pressed frame had nothing at the hotspot the cursor would look like it had jumped off its own tip, which is why the next page is already lifting in it.</span>
+	</div>
+	
+<div class="entry" id="cursors-3">
+		<span class="num">3.</span> <strong>The slider kept the system hand for ages</strong>
+		<span class="d-block">For a long time the slider showed the plain pointing hand and I could not work out why, because the rule on input type range looked right and every other control had taken its cursor without complaint.</span>
+		<span class="d-block">Bootstrap sets cursor: pointer on the slider track, and it does it through a pseudo element. A rule on the element cannot reach a pseudo element, so the element rule and the pseudo rule were never in competition. The pseudo one simply won by being the only one that applied there.</span>
+		<span class="d-block">The fix needs four rules rather than one, because the track and the thumb are separate pseudo elements and each browser spells them differently. They also have to be four separate rules. Put the webkit and the moz spellings in one selector list and the browser throws the whole thing out, since it does not recognise the other vendor's half.</span>
+	</div>
+	
+<div class="entry" id="cursors-4">
+		<span class="num">4.</span> <strong>A cursor is a promise</strong>
+		<span class="d-block">A cursor is the cheapest promise an interface can make and one of the easiest to break. Grab says this moves. Progress says wait and it will finish. Put either on something that does not do that and you have lied to somebody before they have even clicked.</span>
+		<span class="d-block">I could have put grab on the map and it would have looked thorough. The map is a picture. So all three are drawn, specified in the stylesheet, and left unattached, and this page is where that gets written down rather than quietly forgotten.</span>
+	</div>
+	
+<div class="entry" id="cursors-5">
+		<span class="num">5.</span> <strong>Why the badged pointer did not ship</strong>
+		<span class="d-block">An exclamation mark means something has gone wrong. Hanging one off the pointer would put a warning on every link in the product, firing hundreds of times a session, for a condition that is not an error and never changes. The bar at the top of every page already says nothing here works, once, quietly, which is the right number of times to say it.</span>
+		<span class="d-block">It also breaks the set's own grammar. A badge is meant to mark the exception. Badge the most common cursor on the site and the badge stops meaning anything. Help earned one because the dots really are different from links.</span>
+	</div>
+	
+<div class="entry" id="cursors-6">
+		<span class="num">6.</span> <strong>The list is the argument</strong>
+		<span class="d-block">Going through the whole list was worth doing because it forces the question the other way round. Not what could I draw, but what does this interface actually let somebody do. The answer turned out to be click, type, read, and nothing else.</span>
+		<span class="d-block">No canvas, no spreadsheet, no drag and drop, no resizable anything, no zoom. Thirty five values collapse to six. That is a fact about the product rather than about the cursors, and it is the kind of thing a page like this is for.</span>
+	</div>
+	
+<div class="entry" id="cursors-7">
+		<span class="num">7.</span> <strong>Prose keeps the bookmark, and that is on purpose</strong>
+		<span class="d-block">Overriding the body cursor takes the I beam away from ordinary text, which is a real loss, since the I beam is how people know they can select and copy. The honest options were to hand prose back to the browser, or to give it the pencil.</span>
+		<span class="d-block">The pencil is wrong, because it means you can write here and you cannot. The bookmark is right, because the bookmark is the reading cursor and prose is the thing you read. Text still selects exactly as it did, it just does not advertise it, which is the price of the set and worth naming rather than hiding.</span>
+	</div>
+	
+<div class="entry" id="cursors-8">
+		<span class="num">8.</span> <strong>Every glyph is drawn twice</strong>
+		<span class="d-block">The white outline under each shape is not decoration, it is the thing that keeps a cursor findable when the background happens to match it. It costs one duplicated path per glyph.</span>
+		<span class="d-block">I only caught the problem by putting the whole set on a dark swatch beside a light one and looking at it. On the pages I had been testing, everything was fine.</span>
+	</div>
+	
+<div class="entry" id="cursors-9">
+		<span class="num">9.</span> <strong>The fallback is the only line here that is not a design decision</strong>
+		<span class="d-block">cursor: url(pencil.svg) 6 28, text is two declarations in a trench coat. The browser takes the last one it understands, so the keyword is what Safari gets, and what anything gets if the file fails to load.</span>
+		<span class="d-block">Leave it off and you do not get a default arrow, you get no cursor at all, on a page where every control still works. That one is a requirement rather than a choice.</span>
+	</div>
+
+
+	<h2>What is not in here</h2>
+
+	<p>
+		No late fees, due dates, borrowing limits, deposits, borrower accounts,
+		listing approval, or way to report a neighbor. Every one of those needs
+		somebody with the authority to apply it, and in this product there is
+		nobody. Cutting them is the reason the page count went into flows and
+		states instead of a billing section, and the full argument is on
+		<a href="flows/policy.html">the honor system page</a>.
+	</p>
+
+	<p>
+		Reserving a copy, repair tracking, and a damaged state were all drafted
+		and cut. A book anybody can walk up and take cannot be held for
+		somebody twenty minutes away, and nobody repairs a free paperback.
+		Those cuts are argued on <a href="flows/states.html">states of a copy</a>.
+	</p>
+
+	<p>
+		Nothing is built. The buttons do not work, the map is an svg I drew
+		rather than a licensed tile, and a couple of links exist only so the
+		email flows can be walked end to end. It is a prototype to demo, not
+		a site to use.
+	</p>
+
+</div>
+</div>
+</div>
+
+
+<!-- ---------- shared prototype furniture ---------- -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	every numbered note in the prototype, on one page.
+	<a href="public/home.html">start clicking through instead</a> &middot;
+	<a href="index.html">back to the start</a>
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<p class="small text-muted mb-0">
+			You are already on the reference. Print it with ctrl-p and the
+			prototype chrome drops out.
+		</p>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/prototype.js"></script>
+
+</body>
+</html>

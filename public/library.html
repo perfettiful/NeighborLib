@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neighbor Library - A library box</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/prototype.css" />
+</head>
+
+<body data-depth="1" data-page="library">
+
+
+<!-- nav -->
+<nav class="navbar navbar-expand-lg bg-light border-bottom">
+	<div class="container">
+		<a class="navbar-brand" href="../public/home.html">Neighbor Library</a>
+		<div>
+			<a class="btn btn-sm btn-outline-secondary" href="../public/map.html">Map</a>
+			<a class="btn btn-sm btn-outline-secondary" href="../auth/signin.html">Sign in</a>
+			<a class="btn btn-sm btn-primary" href="../auth/signup.html">Register a box</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container my-4">
+
+	<div class="row">
+		<div class="col-md-8">
+			<img src="../images/book-box.svg" width="110" class="float-end ms-3"
+				alt="" />
+			<h1>Como Ave box</h1>
+			<p class="text-muted">
+				1400 block of Como Ave &middot; 0.3 mi &middot; up since 2021
+				<span class="pin" data-n="1"
+					data-title="Block, not street address"
+					data-note="The box is in somebody's front yard. Printing the exact house number turns a public page into a directory of where a specific family lives, and the curator has no say in who reads it.|The block plus the map pin gets a stranger close enough to find a brightly painted box on a post, which is all the precision anybody needs. This was the one privacy call I did not want to get wrong, so it is also written up in the policy page.">1</span>
+			</p>
+
+			<p>
+				<span class="badge bg-light text-dark">34 books</span>
+				<span class="badge bg-light text-dark">6 out right now</span>
+				<span class="badge bg-success">updated 2 days ago</span>
+			</p>
+
+			<p>
+				Mostly novels and kids picture books. Take what you want, leave
+				what you want. There is a bench.
+			</p>
+
+			<hr />
+
+			<div class="d-flex justify-content-between align-items-end">
+				<h4 class="mb-0">What's in it</h4>
+				<div>
+					<label class="visually-hidden" for="sortby">Sort</label>
+					<select class="form-select form-select-sm" id="sortby">
+						<option>Recently added</option>
+						<option>Title</option>
+						<option>Author</option>
+						<option>On the shelf first</option>
+					</select>
+				</div>
+			</div>
+			<p class="small text-muted">
+				34 books, newest first
+				<span class="pin" data-n="2"
+					data-title="Recently added is the default sort"
+					data-note="Alphabetical by title is the librarian answer and it is wrong here. Somebody checking a box they already know is looking for what changed since last time, and new arrivals are the only reason to come back.|Alphabetical is still in the menu for when you are hunting one title. It just is not what the page opens on.">2</span>
+			</p>
+
+			<ul class="list-unstyled">
+				<li class="mb-3 ps-3 status-in">
+					<a href="book.html">Braiding Sweetgrass</a>
+					<small class="text-muted d-block">Kimmerer &middot; added Oct 6</small>
+				</li>
+				<li class="mb-3 ps-3 status-in">
+					<a href="book.html">The Overstory</a>
+					<small class="text-muted d-block">Powers &middot; added Oct 4</small>
+				</li>
+				<li class="mb-3 ps-3 status-out">
+					<a href="book.html">Pachinko</a>
+					<small class="text-muted d-block">Lee &middot; out since Oct 5, back around Oct 19</small>
+				</li>
+				<li class="mb-3 ps-3 status-late">
+					<a href="book.html">Circe</a>
+					<small class="text-muted d-block">Miller &middot; out since Aug 2
+						<span class="pin" data-n="3"
+							data-title="Late is visible but not accusing"
+							data-note="A copy that is nine weeks out is useful information. It is also not a crime, and the public page is the wrong place to shame anybody, especially since the neighbor who has it may well never see this.|So the row gets a red edge and a plain date and no word like overdue or violation. The curator can see the same row in their own tools and decide to let it go, which is usually what happens.">3</span>
+					</small>
+				</li>
+				<li class="mb-3 ps-3 status-in">
+					<a href="book.html">Where the Wild Things Are</a>
+					<small class="text-muted d-block">Sendak &middot; added Sep 28</small>
+				</li>
+			</ul>
+
+			<p class="text-muted small">...29 more. <a href="library.html">Show all</a></p>
+		</div>
+
+
+		<div class="col-md-4">
+			<div class="border p-3 mb-3">
+				<p class="mb-1"><strong>Kept up by</strong></p>
+				<p class="mb-2">Dana, curator since 2021</p>
+				<p class="small text-muted mb-0">
+					No contact form on purpose. Report a problem with the box
+					<a href="../flows/policy.html">here</a>.
+					<span class="pin" data-n="4"
+						data-title="First name only, no contact method"
+						data-note="Curators get a first name so the box feels like it belongs to a person instead of a database. They do not get an email link, a message form, or a last name.|Giving strangers a direct line to somebody's inbox because they volunteered to put a box in their yard is how you get curators to quit. Anything that really needs a human, like a broken box or a bad donation, goes to the site and gets forwarded, and that is the one thing worth building a form for later.">4</span>
+				</p>
+			</div>
+
+			<div class="border p-3">
+				<img src="../images/block-map.svg" class="img-fluid d-block"
+					alt="Block level map. The marker covers the 1400 block of Como Ave
+					rather than pointing at one house." />
+				<p class="small mt-2 mb-0"><a href="map.html">Open the map</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--  shared prototype furniture  -->
+
+<!-- the prototype notice and the settings handle are one object now. the
+     handle sits there faintly on its own, and pointing at it unrolls the
+     notice to its left as part of the same strip -->
+<div id="protoDock" class="no-print">
+	<div class="proto-bar">
+	design prototype, nothing here actually works.
+	<a href="../notes.html">read the reference</a> &middot;
+	press <kbd>?</kbd> for settings
+	</div>
+	<button class="btn btn-secondary" id="protoHandle" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#protoDrawer"
+		title="About this prototype and its settings">?</button>
+</div>
+
+<div class="offcanvas offcanvas-end" id="protoDrawer" tabindex="-1">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title">Prototype settings</h5>
+		<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+	</div>
+	<div class="offcanvas-body">
+
+		<div class="form-check form-switch mb-2">
+			<input class="form-check-input" type="checkbox" id="optPins" checked />
+			<label class="form-check-label" for="optPins">Show the numbered notes</label>
+		</div>
+
+		<div class="form-check form-switch mb-3">
+			<input class="form-check-input" type="checkbox" id="optLoud" />
+			<label class="form-check-label" for="optLoud">Make them obvious</label>
+		</div>
+
+		<p class="small text-muted">
+			<span id="pinCount">0</span> notes on this page.
+			<kbd>h</kbd> hides them, <kbd>?</kbd> opens this.
+		</p>
+
+		<hr />
+
+		<label class="form-label" for="pageJump">Jump to a page</label>
+		<select class="form-select" id="pageJump"></select>
+
+		<hr />
+		<a class="btn btn-sm btn-outline-secondary" href="../notes.html">Full written reference</a>
+	</div>
+</div>
+
+<div class="modal fade" id="pinModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<button class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<a class="btn btn-sm btn-outline-secondary pin-ref" href="../notes.html" target="_blank">
+					See this in the reference</a>
+				<button class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/prototype.js"></script>
+
+</body>
+</html>
