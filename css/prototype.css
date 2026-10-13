@@ -347,8 +347,16 @@ body.pins-loud .pin {
 	padding-bottom: .25rem;
 }
 
+/* the number is placed inside the entry's own padding rather than hung off
+   the front of the first line with a negative text-indent.
+   the hanging version worked out to exactly 24px of clearance from the side
+   index, and anything that nudged it wider, a bigger default font size, page
+   zoom, a stale stylesheet, pushed the numbers out of the column and on top
+   of the index. an absolutely placed number cannot leave its own box. */
 .ref .num {
-	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 0;
 	min-width: 2.4rem;
 	font-weight: bold;
 	color: var(--pin);
@@ -357,16 +365,12 @@ body.pins-loud .pin {
 /* the essay style entries. hanging indent so the numbers line up like a
    works cited page, which is the look i was going for */
 .ref .entry {
+	position: relative;
 	padding-left: 2.6rem;
-	text-indent: -2.6rem;
 	margin-bottom: 1.1rem;
 }
 
-/* only the first line, the one carrying the number, is supposed to hang.
-   text-indent inherits, so every paragraph inside the entry was hanging
-   too and the body text zig zagged in and out */
 .ref .entry .d-block {
-	text-indent: 0;
 	margin-top: .35rem;
 }
 
